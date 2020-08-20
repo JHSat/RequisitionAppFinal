@@ -26,7 +26,38 @@
         </div>
     </div>
     <div class="col nopadding">
-        asdsd
+        <div class="container py-5">
+            <div class="row nopadding">
+                <div class="col nopadding">
+                    <div class="card w-50 ml-4 float-right mr-5">
+                        <div class="card-header">
+                            Requests
+                        </div>
+                        <div class="card-body">
+                            <div class="py-2 text-center">
+                                <span style="font-size: 70px;">0</span>
+                            </div>
+                            <hr>
+                            <button class="btn btn-primary btn-block"> View </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col nopadding">
+                    <div class="card w-50 float-left ml-5">
+                        <div class="card-header">
+                            Registered Users
+                        </div>
+                        <div class="card-body">
+                            <div class="py-2 text-center">
+                                <span style="font-size: 70px;">0</span>
+                            </div>
+                            <hr>
+                            <button class="btn btn-primary btn-block"> View </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

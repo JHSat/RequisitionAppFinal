@@ -33,6 +33,9 @@
         .vertalign{
             vertical-align:middle !important;
         }
+        a{
+            text-decoration: none !important;
+        }
     </style>
 </head>
 <body style="background-color: #D3D3D3;">

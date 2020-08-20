@@ -22,7 +22,24 @@
         </div>
     </div>
     <div class="col nopadding">
-        
+        <div class="container py-4">
+            <div class="card w-75 m-auto">
+                <div class="card-header">
+                    Recent Posts
+                </div>
+                <div class="card-body">
+                    <a href="">
+                        <div class="container border-bottom pt-3">
+                            <h5>Request 1</h5>
+                            <div class="row nopadding">
+                                <div class="col nopadding"><pre>This is a request</pre></div>
+                                <div class="col nopadding text-right"><pre class="text-muted">Requested on: 08/11/2020</pre></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
