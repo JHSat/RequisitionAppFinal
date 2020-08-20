@@ -27,9 +27,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','admin']], function () {
     
-    Route::get('/admindashboard', function () {
-        return view('admin.admindashboard');
-    });
+    Route::get('/admindashboard','UserController@userCount');
 
     Route::get('/admindashboard/users', 'UserController@showUsers')->name('admin.users');
     Route::get('/admindashboard/items', 'ItemController@showItems')->name('admin.itemlist');

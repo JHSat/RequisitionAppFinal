@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Items;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 
 class UserController extends Controller
 {
+
+    public function userCount(){
+        $userCount = User::where('usertype', '=', 'user')->get();
+        $itemCount = Items::all();
+        return view('admin.admindashboard')->with('userCount', $userCount)->with('itemCount', $itemCount);
+    }
     public function showUsers(){
         $user = User::where('usertype', '=', 'user')->get();
         // dd($user);
@@ -27,7 +34,9 @@ class UserController extends Controller
     public function checkIfAuth(){
         if(Auth::user()){
             if(Auth::user()->usertype == 'admin'){
-                return view('admin.admindashboard');
+                $userCount = User::where('usertype', '=', 'user')->get();
+                $itemCount = Items::all();
+                return view('admin.admindashboard')->with('userCount', $userCount)->with('itemCount', $itemCount);
             }
             else{
                 return view('user.userdashboard');

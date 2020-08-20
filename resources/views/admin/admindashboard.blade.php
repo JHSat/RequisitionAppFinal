@@ -35,7 +35,7 @@
                         </div>
                         <div class="card-body">
                             <div class="py-2 text-center">
-                                <span style="font-size: 70px;">0</span>
+                                <span style="font-size: 70px;">{{count($itemCount)}}</span>
                             </div>
                             <hr>
                             <button class="btn btn-primary btn-block"> View </button>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="card-body">
                             <div class="py-2 text-center">
-                                <span style="font-size: 70px;">0</span>
+                                <span style="font-size: 70px;">{{count($userCount)}}</span>
                             </div>
                             <hr>
                             <button class="btn btn-primary btn-block"> View </button>
