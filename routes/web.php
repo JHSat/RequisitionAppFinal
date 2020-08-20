@@ -36,10 +36,11 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::delete('/admindashboard/deleteUser/{id}', 'UserController@deleteUser');
     Route::post('/admindashboard/addItem', 'ItemController@insertItem');
     Route::delete('/admindashboard/deleteItem/{id}', 'ItemController@deleteItem');
+    Route::get('/admindashboard/editItem/{id}', 'ItemController@editItem');
+    Route::put('/admindashboard/updateItem/{id}', 'ItemController@updateItem');
 });
 
 Route::group(['middleware' => ['auth','user']], function () {
-    
    Route::get('/userdashboard', function () {
         return view('user.userdashboard');   
    });

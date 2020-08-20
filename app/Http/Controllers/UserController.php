@@ -34,7 +34,7 @@ class UserController extends Controller
             }
         }
         else{
-            return '/';
+            return view('welcome');
         }
     }
 }

@@ -38,4 +38,26 @@ class ItemController extends Controller
         $item->delete();
         return redirect()->route('admin.itemlist')->withSuccessMessage('Item deleted successfully!');
     }
+
+    public function editItem($item_id){
+        $item = Items::find($item_id);
+        return view('admin.edit_item')->with('item', $item);
+    }
+
+    public function updateItem(Request $request, $id){
+
+        $this->validate($request, [
+            'unit' => 'required',
+            'itemCode' => 'required',
+            'description' => 'required'
+        ]);
+
+        $item = Items::find($id);
+        $item->unit = $request->input('unit');
+        $item->itemCode = $request->input('itemCode');
+        $item->description = $request->input('description');
+        
+        $item->save();
+        return redirect()->route('admin.itemlist')->withSuccessMessage('Item updated successfully!');
+    }
 }

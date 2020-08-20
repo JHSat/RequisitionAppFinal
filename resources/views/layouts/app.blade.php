@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: #D3D3D3;">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
@@ -88,7 +88,7 @@
             </div>
         </nav>
 
-        <main style="background-color: #D3D3D3;">
+        <main>
             @yield('content')
         </main>
     </div>

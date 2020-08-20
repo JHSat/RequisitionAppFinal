@@ -94,7 +94,7 @@
                                         <td>{{$items->itemCode}}</td>
                                         <td>{{$items->description}}</td>
                                         <td class="text-right">
-                                            <a href="" class="btn btn-primary my-2">&nbsp;Edit&nbsp;</a>
+                                            <a href="/admindashboard/editItem/{{$items->item_id}}" class="btn btn-primary my-2">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a>
                                             <form action="/admindashboard/deleteItem/{{$items->item_id}}" method="POST">
                                                 {{ csrf_field() }}
                                                 @method('DELETE')
