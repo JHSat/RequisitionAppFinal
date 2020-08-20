@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Auth;
 
 class UserController extends Controller
 {
@@ -22,5 +22,19 @@ class UserController extends Controller
             $user = User::find($id);
             $user->delete();
             return redirect()->route('admin.users')->withSuccessMessage('Successfully Deleted!');
+    }
+
+    public function checkIfAuth(){
+        if(Auth::user()){
+            if(Auth::user()->usertype == 'admin'){
+                return view('admin.admindashboard');
+            }
+            else{
+                return view('user.userdashboard');
+            }
+        }
+        else{
+            return '/';
+        }
     }
 }

@@ -20,6 +20,9 @@
                 <a href="" class="text-decoration-none text-secondary"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>Requests</span></a>
             </div>
             <hr>
+            <div class="px-1">
+                <a href="/admindashboard/items" class="text-decoration-none text-secondary"><i class="fas fa-people-carry"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>Items</span></a>
+            </div>
         </div>
     </div>
     <div class="col nopadding">

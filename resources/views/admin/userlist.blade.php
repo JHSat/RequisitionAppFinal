@@ -2,12 +2,6 @@
 
 @section('content')
 
-{{-- @if (session('success'))
-    <div class="d-none">
-        {{session('success')}}
-    </div>
-@endif --}}
-
 <div class="row nopadding">
     <div class="col-2 bg-light nopadding" style="height: 100vh;">
         <div class="container py-3">
@@ -27,16 +21,16 @@
                 <a href="" class="text-decoration-none text-secondary"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>Requests</span></a>
             </div>
             <hr>
+            <div class="px-1">
+                <a href="/admindashboard/items" class="text-decoration-none text-secondary"><i class="fas fa-people-carry"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>Items</span></a>
+            </div>
         </div>
     </div>
     <div class="col nopadding">
         <div class="container">
             <div class="card ml-auto mr-auto w-75 my-4">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col">Employees</div>
-                        <div class="col"><button class="btn btn-primary btn-sm float-right">Add</button></div>
-                    </div>
+                    <h5 class="py-3">Employees</h5>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -63,6 +57,11 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
+                                @else
+
+                                <h5>No Records</h5>
+
                             @endif
                         </tbody>
                     </table>

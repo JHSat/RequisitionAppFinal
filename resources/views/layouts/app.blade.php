@@ -27,13 +27,19 @@
             padding: 0 !important;
             margin: 0 !important;
         }
+        td{
+            vertical-align:middle !important;
+        }
+        .vertalign{
+            vertical-align:middle !important;
+        }
     </style>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/security') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
