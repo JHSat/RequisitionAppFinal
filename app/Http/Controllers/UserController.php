@@ -46,4 +46,19 @@ class UserController extends Controller
             return view('welcome');
         }
     }
+
+    public function uploadPhoto(Request $request){
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+
+            // $request->image->storeAs('images', $filename, 'public');
+            // auth()->user()->update(['avatar' => $filename]);
+            if(auth()->user()->avatar){
+                Storage::delete('/public/images/'.auth()->user()->avatar);
+            }
+            $request->image->storeAs('images', $filename, 'public');
+            auth()->user()->update(['avatar' => $filename]);
+        }
+        return redirect()->back();
+    }
 }

@@ -26,9 +26,7 @@ Auth::routes();
 // Route::get('/userdashboard', 'HomeController@index')->name('userdashboard');
 
 Route::group(['middleware' => ['auth','admin']], function () {
-    
     Route::get('/admindashboard','UserController@userCount');
-
     Route::get('/admindashboard/users', 'UserController@showUsers')->name('admin.users');
     Route::get('/admindashboard/items', 'ItemController@showItems')->name('admin.itemlist');
     Route::delete('/admindashboard/deleteUser/{id}', 'UserController@deleteUser');
@@ -36,6 +34,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::delete('/admindashboard/deleteItem/{id}', 'ItemController@deleteItem');
     Route::get('/admindashboard/editItem/{id}', 'ItemController@editItem');
     Route::put('/admindashboard/updateItem/{id}', 'ItemController@updateItem');
+    Route::post('/admindashboard/uploadPhoto', 'UserController@uploadPhoto');
 });
 
 Route::group(['middleware' => ['auth','user']], function () {
