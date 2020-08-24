@@ -61,4 +61,9 @@ class UserController extends Controller
         }
         return redirect()->back();
     }
+
+    public function showUserProfile(){
+        $user = Auth::user();
+        return view('user.userprofile')->with('user', $user);
+    }
 }

@@ -1,35 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-{{-- modal  --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Profile Photo</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <form method="post" action="userdashboard/uploadPhoto/" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label>Select a file</label> <br>
-                    <input type="file" name="image" required>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit" name="upload">Submit</button>
-                </div>
-            </form>
-        </div>
-        </div>
-    </div>
-</div>
-{{-- end modal  --}}
-
-
 <div class="row nopadding">
     <div class="col-2 bg-white nopadding" style="height: 100vh;">
         <div class="container py-3">
@@ -50,13 +21,13 @@
             </div> 
             @endif
             <div class="px-1">
-                <a href="/userdashboard" class="text-decoration-none text-secondary active">
+                <a href="/userdashboard" class="text-decoration-none text-secondary">
                      <i class="fas fa-tachometer-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>Home</span>
                 </a>
             </div>
             <hr>
             <div class="px-1">
-                <a href="/userdashboard/myprofile" class="text-decoration-none text-secondary">
+                <a href="/userdashboard/myprofile" class="text-decoration-none text-secondary active">
                     <i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>My Profile</span>
                 </a>
             </div>
@@ -68,22 +39,7 @@
     </div>
     <div class="col nopadding">
         <div class="container py-4">
-            <div class="card w-75 m-auto">
-                <div class="card-header">
-                    Recent Posts
-                </div>
-                <div class="card-body">
-                    <a href="">
-                        <div class="container border-bottom pt-3">
-                            <h5>Request 1</h5>
-                            <div class="row nopadding">
-                                <div class="col nopadding"><pre>This is a request</pre></div>
-                                <div class="col nopadding text-right"><pre class="text-muted">Requested on: 08/11/2020</pre></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            {{$user->email}}
         </div>
     </div>
 </div>
