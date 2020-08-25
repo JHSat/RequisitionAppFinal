@@ -42,7 +42,8 @@ Route::group(['middleware' => ['auth','user']], function () {
         return view('user.userdashboard');   
    });
    Route::post('/userdashboard/uploadPhoto', 'UserController@uploadPhoto');
-   Route::get('/userdashboard/myprofile', 'UserController@showUserProfile');
+   Route::get('/userdashboard/myprofile', 'UserController@showUserProfile')->name('myprofile');
+   Route::post('/userdashboard/updateProfile/{id}', 'UserController@updateProfile');
 });
 
 

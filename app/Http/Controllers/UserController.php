@@ -7,6 +7,8 @@ use App\User;
 use App\Items;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
+use Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -63,7 +65,29 @@ class UserController extends Controller
     }
 
     public function showUserProfile(){
+        
         $user = Auth::user();
+        if(session('success_message')){
+            toast(session('success_message'),'success')->position('top')->width('450px');
+        }
         return view('user.userprofile')->with('user', $user);
+    }
+
+    public function updateProfile(Request $request, $id){
+
+        // dd($request->all());
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'unique:users,email,'.$id
+        ]);
+
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        $user->save();
+
+        return redirect()->route('myprofile')->withSuccessMessage('Successfully updated!');
+
     }
 }

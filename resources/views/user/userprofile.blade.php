@@ -39,7 +39,39 @@
     </div>
     <div class="col nopadding">
         <div class="container py-4">
-            {{$user->email}}
+            <div class="card w-75 m-auto">
+                <div class="card-header">
+                    <h5 class="nopadding">Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row nopadding">
+                        <div class="col-3 nopadding">
+                            <div class="container text-center">
+                                <img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="" width="150">
+                                <button class="btn btn-block btn-primary mt-4">Update Profile Photo</button>
+                            </div>
+                        </div>
+                        <div class="col nopadding">
+                            <div class="container">
+                                <form action="/userdashboard/updateProfile/{{Auth::user()->id}}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="">Name</label>
+                                        <input type="text" name="name" id="" value="{{Auth::user()->name}}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Email</label>
+                                        <input type="email" name="email" id="email" value="{{Auth::user()->email}}" class="form-control">
+                                    </div>
+                                    <div class="text-right">
+                                        <button type="submit" class="btn btn-success">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
