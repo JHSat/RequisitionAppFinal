@@ -1,4 +1,24 @@
 $(document).ready(function(){
+
+    function refreshTable() {
+        $('.dataTable').each(function() {
+            dt = $(this).dataTable();
+            dt.fnDraw();
+        })
+    }
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-left',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
     $('body').on('click', '.btnViewUserDetails', function(){
         $('#userModal').modal('show');
         var user = $(this).data('id');
@@ -36,5 +56,59 @@ $(document).ready(function(){
             $('#editUnit').val(data.unit)
             $('#editDescription').text(data.description)
         })
+    })
+
+    $('body').on('click', '.btnDeleteItem', function(e){
+        e.preventDefault();
+
+        var item_id = $(this).data('id')
+
+        // console.log(item_id)
+
+        var url = '/deleteItem/' + item_id
+
+        $.ajax({
+            url: url,
+            method: 'DELETE',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success: function(response){
+                Toast.fire({
+                    icon: 'success',
+                    title: response.success
+                })
+                refreshTable();
+            },
+            error: function(error){
+                console.log('error')
+            }
+        })
+    })
+
+
+    $('#btnAddItem').click(function(e){
+        e.preventDefault();
+
+        var url = '/admindashboard/addItem'
+
+        var formData = {
+            unit: $('#unit').val(),
+            description: $('#description').val(),
+        }
+
+        // console.log(formData, '#btnAddItem')
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: formData,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success: function(response){
+                console.log(response.success)
+            },
+            error: function(error){
+                console.log(error)
+            }
+        })
+
     })
 })

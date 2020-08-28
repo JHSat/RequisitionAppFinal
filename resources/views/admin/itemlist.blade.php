@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
@@ -12,23 +12,23 @@
             </button>
         </div>
         <div class="modal-body">
-            <form method="post" action="/admindashboard/addItem">
+            <form id="formAddItem">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>Unit</label>
-                    <input type="text" class="form-control" name="unit" required>
+                    <input type="text" class="form-control" name="unit" id="unit" required>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label>Item Code</label>
                     <input type="text" class="form-control" name="itemCode" required>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control" name="description" id="" cols="30" rows="5"></textarea>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="5"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary">
+                    <button type="submit" id="btnAddItem" class="btn btn-primary">Save Item</button>
                 </div>
             </form>
         </div>
@@ -150,7 +150,7 @@
                             <h5 class="pt-2">Item List</h5>
                         </div>
                         <div class="col nopadding text-right">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">Add</button>
                         </div>
                     </div>
                 </div>

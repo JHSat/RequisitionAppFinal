@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/getItems', 'ItemController@getItems')->name('get.items');
     Route::get('/getItemDetails/{id}', 'ItemController@getItemDetails')->name('get.items.details');
     Route::post('/admindashboard/addItem', 'ItemController@insertItem');
-    Route::delete('/admindashboard/deleteItem/{id}', 'ItemController@deleteItem');
+    Route::delete('/deleteItem/{id}', 'ItemController@deleteItem');
     Route::get('/admindashboard/editItem/{id}', 'ItemController@editItem');
     Route::put('/admindashboard/updateItem/{id}', 'ItemController@updateItem');
     Route::post('/admindashboard/uploadPhoto', 'UserController@uploadPhoto');

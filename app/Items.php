@@ -8,5 +8,6 @@ class Items extends Model
 {
     protected $primaryKey = 'item_id';
     public $timestamps = false;
-    protected $fillable = ['itemCode', 'description', 'unit'];
+    protected $fillable = ['item_id','itemCode', 'description', 'unit'];
+    protected $keyType = 'string';
 }
