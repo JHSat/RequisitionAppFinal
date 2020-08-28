@@ -7,13 +7,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Profile Photo</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Request</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <form method="post" action="userdashboard/uploadPhoto/" enctype="multipart/form-data">
+            <form method="post" action="" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>Select a file</label> <br>
@@ -70,7 +70,14 @@
         <div class="container py-4">
             <div class="card w-75 m-auto">
                 <div class="card-header">
-                    Recent Posts
+                    <div class="row nopadding">
+                        <div class="col nopadding vertalign">
+                            <h5 class="nopadding">Requests</h5>
+                        </div>
+                        <div class="col nopadding">
+                            <button class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">Make a Request</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <a href="">

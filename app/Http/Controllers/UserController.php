@@ -8,6 +8,7 @@ use App\Items;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 use Validator;
+use Yajra\Datatables\Datatables;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -19,18 +20,25 @@ class UserController extends Controller
         return view('admin.admindashboard')->with('userCount', $userCount)->with('itemCount', $itemCount);
     }
     public function showUsers(){
-        $user = User::where('usertype', '=', 'user')->get();
-        // dd($user);
-        if(session('success_message')){
-            toast(session('success_message'),'success')->position('top')->width('450px');
-        }
-        return view('admin.userlist')->with('user', $user);
+
+        return view('admin.userlist');
     }
 
-    public function deleteUser($id){
-            $user = User::find($id);
-            $user->delete();
-            return redirect()->route('admin.users')->withSuccessMessage('Successfully Deleted!');
+    public function getUsers(){
+        $data = User::where('usertype', '=', 'user');
+        return Datatables::of($data)
+        ->addColumn('action', function($row){
+            // $btn = '<a href="javascript:void(0)" class="edit btn btn-info btn-sm">View</a> ';
+            $btn = '<a href="javascript:void(0)" data-id="'.$row->id.'" class="btnViewUserDetails btn btn-primary btn-sm">View Details</a> ';
+
+            return $btn;
+        })
+        ->make(true);
+    }
+
+    public function userDetails($id){
+        $data = User::find($id);
+        return response()->json($data);
     }
 
     public function checkIfAuth(){

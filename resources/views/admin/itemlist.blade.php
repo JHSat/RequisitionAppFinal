@@ -37,6 +37,70 @@
 </div>
 {{-- end modal --}}
 
+
+{{-- modal details  --}}
+<div class="modal fade" id="modalItemDetails" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Item Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+              <span>Item ID: </span> <span id="item_id" class="text-secondary"></span><br><br>
+              <span>Item Code: </span> <span id="itemCode" class="text-secondary"></span><br><br>
+              <span>Unit: </span> <span id="unit" class="text-secondary"></span><br><br>
+              <span>Item Description: </span> <br> <span id="description" class="text-secondary"></span><br>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+{{-- end modal  --}}
+
+
+{{-- modal edit  --}}
+<div class="modal fade" id="modalEdit" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Item Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+              <form id="formEditItem">
+                <div class="form-group">
+                    <label for="">Unit</label>
+                    <input type="text" class="form-control" id="editUnit">
+                </div>
+                <div class="form-group">
+                    <label for="">Description</label>
+                    <textarea name="description" id="editDescription" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+              
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+{{-- end modal  --}}
+
+
 <div class="row nopadding">
     <div class="col-2 bg-light nopadding" style="height: 100vh;">
         <div class="container py-3">
@@ -79,7 +143,7 @@
     </div>
     <div class="col nopadding">
         <div class="container">
-            <div class="card ml-auto mr-auto w-75 my-4">
+            <div class="card ml-auto mr-auto my-4">
                 <div class="card-header">
                     <div class="row nopadding">
                         <div class="col nopadding">
@@ -91,46 +155,38 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table id="myTable" class="table table-striped">
                         <thead>
                             <tr>
                                 <td>#</td>
-                                <td>Unit</td>
                                 <td>Item Code</td>
-                                <td>Description</td>
+                                <td>Unit</td>
                                 <td class="text-right">Action</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            @if (count($item) > 0)
-                                @foreach ($item as $items)
-                                    <tr>
-                                        <td>{{$items->item_id}}</td>
-                                        <td>{{$items->unit}}</td>
-                                        <td>{{$items->itemCode}}</td>
-                                        <td>{{$items->description}}</td>
-                                        <td class="text-right">
-                                            <a href="/admindashboard/editItem/{{$items->item_id}}" class="btn btn-primary my-2">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a>
-                                            <form action="/admindashboard/deleteItem/{{$items->item_id}}" method="POST">
-                                                {{ csrf_field() }}
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"> Delete </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                                @else
-
-                                <h5>No Records</h5>
-
-                            @endif
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        //show DataTables
+        $('#myTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('get.items') }}"
+            },
+            columns: [
+                { data: 'item_id', name: 'item_id'},
+                { data: 'itemCode', name: 'itemCode'},
+                { data: 'unit', name: 'unit'},
+                { data: 'action', name: 'action'}
+            ]
+        });
+    });
+</script>
 @include('sweetalert::alert')
 @endsection

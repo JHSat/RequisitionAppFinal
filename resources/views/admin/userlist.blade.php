@@ -1,6 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+{{-- modal  --}}
+<div class="modal fade" id="userModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">User Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <span>ID Number: </span> <span id="id"></span><br><br>
+                    <span>Name: </span> <span id="name"></span><br><br>
+                    <span>Email: </span> <span id="email"></span><br><br>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- modal end  --}}
+
 
 <div class="row nopadding">
     <div class="col-2 bg-light nopadding" style="height: 100vh;">
@@ -44,47 +69,43 @@
     </div>
     <div class="col nopadding">
         <div class="container">
-            <div class="card ml-auto mr-auto w-75 my-4">
+            <div class="card ml-auto mr-auto my-4">
                 <div class="card-header">
                     <h5 class="py-3">Employees</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="myTable">
                         <thead>
                             <tr>
                                 <td>#</td>
+                                <td>Name</td>
                                 <td>Email</td>
-                                <td class="text-right">Action</td>
+                                <td>Action</td>
                             </tr>
                         </thead>
-                        <tbody>
-                            @if (count($user) > 0)
-                                @foreach ($user as $users)
-                                    <tr>
-                                        <td>{{$users->id}}</td>
-                                        <td>{{$users->email}}</td>
-                                        <td class="text-right">
-                                            <a href="" class="btn btn-primary my-2">&nbsp;View&nbsp;</a>
-                                            <form action="/admindashboard/deleteUser/{{$users->id}}" method="POST">
-                                                {{ csrf_field() }}
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"> Delete </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                                @else
-
-                                <h5>No Records</h5>
-
-                            @endif
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        //show DataTables
+        $('#myTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('get.users') }}"
+            },
+            columns: [
+                { data: 'id', name: 'id'},
+                { data: 'name', name: 'name'},
+                { data: 'email', name: 'email'},
+                { data: 'action', name: 'action'}
+            ]
+        });
+    });
+</script>
 @include('sweetalert::alert')
 @endsection

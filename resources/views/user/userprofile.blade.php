@@ -1,6 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+
+{{-- modal  --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Profile Photo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="/uploadPhoto" enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label>Select a file</label> <br>
+                    <input type="file" name="image" required>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" name="upload">Submit</button>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{{-- end modal  --}}
+
 <div class="row nopadding">
     <div class="col-2 bg-white nopadding" style="height: 100vh;">
         <div class="container py-3">
@@ -48,7 +76,7 @@
                         <div class="col-3 nopadding">
                             <div class="container text-center">
                                 <img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="" width="150">
-                                <button class="btn btn-block btn-primary mt-4">Update Profile Photo</button>
+                                <button class="btn btn-block btn-primary mt-4" data-toggle="modal" data-target="#exampleModal">Update Profile Photo</button>
                             </div>
                         </div>
                         <div class="col nopadding">

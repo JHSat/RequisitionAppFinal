@@ -29,12 +29,15 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/admindashboard','UserController@userCount');
     Route::get('/admindashboard/users', 'UserController@showUsers')->name('admin.users');
     Route::get('/admindashboard/items', 'ItemController@showItems')->name('admin.itemlist');
-    Route::delete('/admindashboard/deleteUser/{id}', 'UserController@deleteUser');
+    Route::get('/getItems', 'ItemController@getItems')->name('get.items');
+    Route::get('/getItemDetails/{id}', 'ItemController@getItemDetails')->name('get.items.details');
     Route::post('/admindashboard/addItem', 'ItemController@insertItem');
     Route::delete('/admindashboard/deleteItem/{id}', 'ItemController@deleteItem');
     Route::get('/admindashboard/editItem/{id}', 'ItemController@editItem');
     Route::put('/admindashboard/updateItem/{id}', 'ItemController@updateItem');
     Route::post('/admindashboard/uploadPhoto', 'UserController@uploadPhoto');
+    Route::get('/admindashboard/getusers', 'UserController@getUsers')->name('get.users');
+    Route::get('/userDetails/{id}', 'UserController@userDetails');
 });
 
 Route::group(['middleware' => ['auth','user']], function () {
@@ -44,8 +47,8 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::post('/userdashboard/uploadPhoto', 'UserController@uploadPhoto');
    Route::get('/userdashboard/myprofile', 'UserController@showUserProfile')->name('myprofile');
    Route::post('/userdashboard/updateProfile/{id}', 'UserController@updateProfile');
+   Route::post('/uploadPhoto', 'UserController@uploadPhoto');
 });
-
 
 Route::get('/security', 'UserController@checkIfAuth');
 
