@@ -28,7 +28,7 @@
 
 
 <div class="row nopadding">
-    <div class="col-2 bg-light nopadding" style="height: 100vh;">
+    <div class="col-md-2 bg-light nopadding" style="height: 100vh;">
         <div class="container py-3">
             @if (empty(Auth::user()->avatar))
             <div class="px-1 text-center pt-5 pb-3">
@@ -41,7 +41,7 @@
             </div>
             @else
             <div class="px-1 text-center py-3">
-                <img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="..." class="rounded-circle" width="120"><br>
+                <img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="..." class="rounded-circle img-fluid" width="120"><br>
                 <h5>{{Auth::user()->name}}</h5><br>
                 <small>{{Auth::user()->usertype}}</small>
             </div> 
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="col nopadding">
+    <div class="col-md nopadding">
         <div class="container">
             <div class="card ml-auto mr-auto my-4">
                 <div class="card-header">

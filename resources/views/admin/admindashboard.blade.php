@@ -42,7 +42,7 @@
                 </div>
             @else
             <div class="px-1 text-center py-3">
-                <img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="..." class="rounded-circle" width="120"><br>
+                <img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="..." class="rounded-circle img-fluid" width="120"><br>
                 <h5>{{Auth::user()->name}}</h5><br>
                 <small>{{Auth::user()->usertype}}</small>
             </div> 

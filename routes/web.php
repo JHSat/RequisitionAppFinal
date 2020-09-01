@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::get('/userdashboard/myprofile', 'UserController@showUserProfile')->name('myprofile');
    Route::post('/userdashboard/updateProfile/{id}', 'UserController@updateProfile');
    Route::post('/uploadPhoto', 'UserController@uploadPhoto');
+   Route::get('/userdashboard/makerequest', 'RequestController@indexmakerequest');
 });
 
 Route::get('/security', 'UserController@checkIfAuth');

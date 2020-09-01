@@ -69,52 +69,35 @@
     </div>
     <div class="col nopadding">
         <div class="container py-4">
-            <div class="card w-75 m-auto">
+            <div class="card">
                 <div class="card-header">
-                    <div class="row nopadding">
-                        <div class="col nopadding vertalign">
-                            <h5 class="nopadding">Requests</h5>
-                        </div>
-                        <div class="col nopadding">
-                            <a href="/userdashboard/makerequest" class="btn btn-primary float-right">Make a request</a>
-                        </div>
-                    </div>
+                    Requisition Form
                 </div>
                 <div class="card-body">
-                    <a href="">
-                        <div class="container border-bottom pt-3">
-                            <h5>Request 1</h5>
-                            <div class="row nopadding">
-                                <div class="col nopadding"><pre>This is a request</pre></div>
-                                <div class="col nopadding text-right"><pre class="text-muted">Requested on: 08/11/2020</pre></div>
+                    <div class="container">
+                        <div class="py-3">
+                            <small>Date: </small><small>10/01/2020</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Requestee:</label>
+                            <input type="text" class="form-control" value="{{Auth::user()->name}}" disabled>
+                        </div>
+                        <div class="py-4">
+                            <h5>Items</h5>
+                            <hr>
+                            <div class="container1">
+                                <button class="add_form_field btn btn-success my-1">Add New Field &nbsp; 
+                                  <span style="font-size:16px; font-weight:bold;">+ </span>
+                                </button>
                             </div>
                         </div>
-                    </a>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary">Save Request</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                    <h5>Welcome admin!</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 @endsection

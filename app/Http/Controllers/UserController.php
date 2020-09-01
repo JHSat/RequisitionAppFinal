@@ -82,20 +82,14 @@ class UserController extends Controller
     }
 
     public function updateProfile(Request $request, $id){
-
-        // dd($request->all());
         $this->validate($request, [
             'name' => 'required',
             'email' => 'unique:users,email,'.$id
         ]);
-
         $user = User::find($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-
         $user->save();
-
         return redirect()->route('myprofile')->withSuccessMessage('Successfully updated!');
-
     }
 }

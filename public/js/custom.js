@@ -101,7 +101,6 @@ $(document).ready(function(){
 
     $('body').on('click', '#btnUpdateItem', function(e){
         e.preventDefault();
-        // console.log('clicked!')
         var user = $(this).data('id')
         var formData = {
             item_id: $('#item_id').val(),
