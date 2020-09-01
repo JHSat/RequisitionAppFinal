@@ -12,16 +12,6 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 class ItemController extends Controller
 {
     public function showItems(){
-        // $item = Items::all();
-        // if(session('success_message')){
-        //     toast(session('success_message'),'success')->position('top')->width('450px');
-        // }
-
-        // $sql = "SELECT * FROM items";
-        // $polist = DB::connection('mysql')->select($sql);
-        // dd($polist);
-        // $sql = "SELECT * FROM transaction join addeditems.transac_code = transaction.transac_code WHERE transac_id=".$id
-        
         return view('admin.itemlist');
     }
 
@@ -43,7 +33,6 @@ class ItemController extends Controller
     }
 
     public function insertItem(Request $request){
-
         $config = [
             'table' => 'items',
             'prefix' => 'ITM',
@@ -56,10 +45,8 @@ class ItemController extends Controller
             'field' => 'itemCode',
             'length' => 8
         ];
-
         $id = IdGenerator::generate($config);
         $id2 = IdGenerator::generate($config2);
-
         $item = new Items([
             'item_id' => $id,
             'itemCode' => $id2,
@@ -67,8 +54,6 @@ class ItemController extends Controller
             'unit' => $request->get('unit')
             
         ]);
-
-
         $item->save();
         return response()->json([
             'success' => 'Item added successfully',
@@ -76,11 +61,8 @@ class ItemController extends Controller
         ]);
     }
 
-    
-
     public function deleteItem($id){
         $item = Items::find($id)->delete();
-    
         return response()->json([
             'success' => 'Deleted!'
         ]);
@@ -92,19 +74,12 @@ class ItemController extends Controller
     }
 
     public function updateItem(Request $request, $id){
-
-        $this->validate($request, [
-            'unit' => 'required',
-            'itemCode' => 'required',
-            'description' => 'required'
-        ]);
-
         $item = Items::find($id);
-        $item->unit = $request->input('unit');
-        $item->itemCode = $request->input('itemCode');
-        $item->description = $request->input('description');
-        
+        $item->description = $request->description;
+        $item->unit = $request->unit;
         $item->save();
-        return redirect()->route('admin.itemlist')->withSuccessMessage('Item updated successfully!');
+        return response()->json([
+            'success' => 'Item updated successfully!'
+        ]);
     }
 }

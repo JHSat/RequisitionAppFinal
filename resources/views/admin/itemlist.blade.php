@@ -67,7 +67,7 @@
 {{-- end modal  --}}
 
 
-{{-- modal edit  --}}
+{{-- modal edit / update --}}
 <div class="modal fade" id="modalEdit" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -80,6 +80,10 @@
         <div class="modal-body">
           <div class="container">
               <form id="formEditItem">
+
+                @csrf
+                <input type="text" class="form-control" id="item_id" hidden>
+                <input type="text" class="form-control" id="itemCode" hidden>
                 <div class="form-group">
                     <label for="">Unit</label>
                     <input type="text" class="form-control" id="editUnit">
@@ -92,7 +96,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="submit" class="btn btn-primary" id="btnUpdateItem">Save Changes</button>
         </form>
         </div>
       </div>
@@ -162,7 +166,7 @@
                                 <td>#</td>
                                 <td>Item Code</td>
                                 <td>Unit</td>
-                                <td class="text-right">Action</td>
+                                <td>Action</td>
                             </tr>
                         </thead>
                     </table>

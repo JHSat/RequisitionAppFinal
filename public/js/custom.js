@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     function refreshTable() {
         $('.dataTable').each(function() {
             dt = $(this).dataTable();
@@ -22,21 +21,16 @@ $(document).ready(function(){
     $('body').on('click', '.btnViewUserDetails', function(){
         $('#userModal').modal('show');
         var user = $(this).data('id');
-        // console.log(user)
-
         $.get('/userDetails/' + user, function(data){
             $('#id').text(data.id);
             $('#name').text(data.name);
             $('#email').text(data.email);
-
             console.log(data);
         })
     })
 
     $('body').on('click', '.btnViewItemDetails', function(){
-
         var user = $(this).data('id')
-
         $('#modalItemDetails').modal('show');
         $.get('/getItemDetails/' + user, function(data){
             $('#item_id').text(data.item_id)
@@ -46,13 +40,13 @@ $(document).ready(function(){
         })
     })
 
-
     $('body').on('click', '.btnEditItem', function(){
-
         var user = $(this).data('id')
         console.log(user)
         $('#modalEdit').modal('show');
         $.get('/getItemDetails/' + user, function(data){
+            $('#item_id').val(data.item_id)
+            $('#itemCode').val(data.itemCode)
             $('#editUnit').val(data.unit)
             $('#editDescription').text(data.description)
         })
@@ -60,13 +54,8 @@ $(document).ready(function(){
 
     $('body').on('click', '.btnDeleteItem', function(e){
         e.preventDefault();
-
         var item_id = $(this).data('id')
-
-        // console.log(item_id)
-
         var url = '/deleteItem/' + item_id
-
         $.ajax({
             url: url,
             method: 'DELETE',
@@ -84,27 +73,19 @@ $(document).ready(function(){
         })
     })
 
-
     $('#btnAddItem').click(function(e){
         e.preventDefault();
-
         var url = '/admindashboard/addItem'
-
         var formData = {
             unit: $('#unit').val(),
             description: $('#description').val(),
         }
-
-        // console.log(formData, '#btnAddItem')
-
         $.ajax({
             url: url,
             method: 'POST',
             data: formData,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function(response){
-                // console.log(response.success)
-                // console.log(response.data)
                 $('#modalAdd').modal('hide')
                 Toast.fire({
                     icon: 'success',
@@ -116,6 +97,35 @@ $(document).ready(function(){
                 console.log(error)
             }
         })
+    })
 
+    $('body').on('click', '#btnUpdateItem', function(e){
+        e.preventDefault();
+        // console.log('clicked!')
+        var user = $(this).data('id')
+        var formData = {
+            item_id: $('#item_id').val(),
+            itemCode: $('#itemCode').val(),
+            description: $('#editDescription').val(),
+            unit: $('#editUnit').val(),
+        }
+        var url = '/updateItem/' + formData.item_id
+        $.ajax({
+            url: url,
+            data: formData,
+            method: 'PUT',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success: function(res){
+                $('#modalEdit').modal('hide')
+                Toast.fire({
+                    icon: 'success',
+                    title: res.success
+                })
+                refreshTable();
+            },
+            error: function(err){
+                console.log('failed')
+            }
+        })
     })
 })

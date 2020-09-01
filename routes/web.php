@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::post('/admindashboard/addItem', 'ItemController@insertItem');
     Route::delete('/deleteItem/{id}', 'ItemController@deleteItem');
     Route::get('/admindashboard/editItem/{id}', 'ItemController@editItem');
-    Route::put('/admindashboard/updateItem/{id}', 'ItemController@updateItem');
+    Route::put('/updateItem/{id}', 'ItemController@updateItem');
     Route::post('/admindashboard/uploadPhoto', 'UserController@uploadPhoto');
     Route::get('/admindashboard/getusers', 'UserController@getUsers')->name('get.users');
     Route::get('/userDetails/{id}', 'UserController@userDetails');
