@@ -10,4 +10,5 @@ class Items extends Model
     public $timestamps = false;
     protected $fillable = ['item_id','itemCode', 'description', 'unit'];
     protected $keyType = 'string';
+    protected $table = 'items';
 }

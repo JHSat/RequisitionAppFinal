@@ -52,8 +52,9 @@
           <div class="container">
               <span>Item ID: </span> <span id="item_id" class="text-secondary"></span><br><br>
               <span>Item Code: </span> <span id="itemCode" class="text-secondary"></span><br><br>
-              <span>Unit: </span> <span id="unit" class="text-secondary"></span><br><br>
-              <span>Item Description: </span> <br> <span id="description" class="text-secondary"></span><br>
+              <span>Unit: </span> <span id="unitItem" class="text-secondary"></span><br><br>
+              {{-- <span>Unit: </span> <span id="unit" class="text-secondary"></span><br><br> --}}
+              <span>Item Description: </span> <br><br> <span id="unitDescription" class="text-secondary"></span><br>
           </div>
         </div>
         <div class="modal-footer">

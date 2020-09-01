@@ -44,56 +44,38 @@ class ItemController extends Controller
 
     public function insertItem(Request $request){
 
-        if($request->ajax()){
-            $config = [
-                'table' => 'items',
-                'length' => 6,
-                'prefix' => 'ITM'
-            ];
-    
-            $item_id = IdGenerator::generate($config);
-    
-            $config2 = [
-                'table' => 'items',
-                'length' => 7,
-                'prefix' => 'ITCD'
-            ];
-    
-            $itemCode = IdGenerator::generate($config2);
-    
-            $item = new Item([
-                'item_id' => $item_id,
-                'itemCode' => $itemCode,
-                'description' => $request->get('description'),
-                'unit' => $request->get('unit')
-            ]); 
+        $config = [
+            'table' => 'items',
+            'prefix' => 'ITM',
+            'field' => 'item_id',
+            'length' => 8
+        ];
+        $config2 = [
+            'table' => 'items',
+            'prefix' => 'ITCD',
+            'field' => 'itemCode',
+            'length' => 8
+        ];
 
-            $item->save();
-    
-            return response()->json([
-                'success' => $item
-            ]);
-        }
+        $id = IdGenerator::generate($config);
+        $id2 = IdGenerator::generate($config2);
 
-        //THIS IS THE PART I LEFT :(
+        $item = new Items([
+            'item_id' => $id,
+            'itemCode' => $id2,
+            'description' => $request->get('description'),
+            'unit' => $request->get('unit')
+            
+        ]);
 
 
-        // $this->validate($request, [
-        //     'unit' => 'required',
-        //     'itemCode' => 'required',
-        //     'description' => 'required'
-        // ]);
-
-        // $item = new Items([
-        //     'itemCode' => $request->get('itemCode'),
-        //     'description' => $request->get('description'),
-        //     'unit' => $request->get('unit')
-        // ]);
-        
-
-        // $item->save();
-        // return redirect()->route('admin.itemlist')->withSuccessMessage('Item added successfully!');
+        $item->save();
+        return response()->json([
+            'success' => 'Item added successfully',
+            'data' => $item
+        ]);
     }
+
     
 
     public function deleteItem($id){

@@ -41,8 +41,8 @@ $(document).ready(function(){
         $.get('/getItemDetails/' + user, function(data){
             $('#item_id').text(data.item_id)
             $('#itemCode').text(data.itemCode)
-            $('#unit').text(data.unit)
-            $('#description').text(data.description)
+            $('#unitItem').text(data.unit)
+            $('#unitDescription').text(data.description)
         })
     })
 
@@ -103,7 +103,14 @@ $(document).ready(function(){
             data: formData,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function(response){
-                console.log(response.success)
+                // console.log(response.success)
+                // console.log(response.data)
+                $('#modalAdd').modal('hide')
+                Toast.fire({
+                    icon: 'success',
+                    title: response.success
+                })
+                refreshTable();
             },
             error: function(error){
                 console.log(error)
