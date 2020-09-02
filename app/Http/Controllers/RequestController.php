@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Items;
 use App\Requests;
+use App\Storage;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 
@@ -51,8 +52,22 @@ class RequestController extends Controller
             ]);
 
             if($req->save()){
+
+                $item_id = $request->item;
+                $quantity = $request->quantity;
+                
+                for($count = 0;  $count < count($item_id); $count++){
+                    $data = array(
+                        'item_id' => $item_id[$count],
+                        'transac_code' => $transac_code,
+                        'quantity' => $quantity[$count],
+                    );
+                    $insert_data[] = $data;
+                }
+
+                Storage::insert($insert_data);
                 return response()->json([
-                    'data' => $req
+                    'data' => 'success'
                 ]);
             }
         }
