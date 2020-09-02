@@ -85,6 +85,8 @@
                         <div class="py-4">
                             <h5>Items</h5>
                             <hr>
+                            <form name="addRequest" id="addRequest">
+                                @csrf
                             <div class="container1">
                                 <button class="add_form_field btn btn-success my-1">Add New Field &nbsp; 
                                   <span style="font-size:16px; font-weight:bold;">+ </span>
@@ -92,7 +94,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary">Save Request</button>
+                            <button type="submit" id="btnInsertRequest" class="btn btn-primary">Save Request</button>
+                            </form>
                         </div>
                     </div>
                 </div>

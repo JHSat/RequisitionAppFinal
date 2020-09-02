@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->string('item_id')->primary();
             $table->string('itemCode', 30);
             $table->string('description');
-            $table->string('unit', 10);
+            $table->string('unit', 50);
         });
     }
 

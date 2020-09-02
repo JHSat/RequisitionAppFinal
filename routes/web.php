@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::post('/userdashboard/updateProfile/{id}', 'UserController@updateProfile');
    Route::post('/uploadPhoto', 'UserController@uploadPhoto');
    Route::get('/userdashboard/makerequest', 'RequestController@indexmakerequest');
+   Route::get('/getAllItems', 'RequestController@getAllItems');
+   Route::post('/insertRequestedItem', 'RequestController@insertRequestedItem');
 });
 
 Route::get('/security', 'UserController@checkIfAuth');
