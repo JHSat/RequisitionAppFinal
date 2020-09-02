@@ -28,7 +28,7 @@ $(document).ready(function() {
                     
                 }
             })
-            console.log(x)
+            // console.log(x)
             
         } else {
             alert('You Reached the limits')

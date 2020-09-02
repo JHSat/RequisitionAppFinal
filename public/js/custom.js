@@ -128,14 +128,15 @@ $(document).ready(function(){
         })
     })
 
+
     $('body').on('click', '#btnInsertRequest', function(e){
         e.preventDefault();
 
-        var formData = $('#addRequest').serializeArray();
-        var url = '/insertRequestedItem'
+        var formData = $('#addRequest').serialize();
+        var url = '/insertRequest'
 
 
-        console.log(formData)
+        // console.log(formData)
         $.ajax({
             url: url,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -149,4 +150,25 @@ $(document).ready(function(){
             }
         })
     })
+    // $('body').on('click', '#btnInsertRequest', function(e){
+    //     e.preventDefault();
+
+    //     var formData = $('#addRequest').serializeArray();
+    //     var url = '/insertRequestedItem'
+
+
+    //     // console.log(formData)
+    //     $.ajax({
+    //         url: url,
+    //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+    //         method: 'POST',
+    //         data: formData,
+    //         success: function(res){
+    //             console.log(res.data)
+    //         },
+    //         error: function(err){
+    //             console.log(err)
+    //         }
+    //     })
+    // })
 })

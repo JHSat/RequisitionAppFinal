@@ -86,7 +86,9 @@
                             <h5>Items</h5>
                             <hr>
                             <form name="addRequest" id="addRequest">
+                               
                                 @csrf
+                                <input type="text" name="requestee" id="requestee" value="{{Auth::user()->id}}" hidden>
                             <div class="container1">
                                 <button class="add_form_field btn btn-success my-1">Add New Field &nbsp; 
                                   <span style="font-size:16px; font-weight:bold;">+ </span>

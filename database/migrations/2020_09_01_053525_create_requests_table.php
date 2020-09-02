@@ -14,9 +14,13 @@ class CreateRequestsTable extends Migration
     public function up()
     {
         Schema::create('requests', function (Blueprint $table) {
-            $table->id();
-            $table->string('item_id');
-            $table->string('quantity');
+            $table->string('req_id', 20)->primary();
+            $table->string('transac_code', 20)->nullable();
+            $table->string('requestee', 10)->nullable();
+            $table->date('processed_date')->nullable();
+            $table->string('processed_by', 10)->nullable();
+            $table->string('approved_by', 10)->nullable();
+            $table->string('status', 20)->nullable();
             // $table->timestamps();
         });
     }

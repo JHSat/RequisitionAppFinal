@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::post('/uploadPhoto', 'UserController@uploadPhoto');
    Route::get('/userdashboard/makerequest', 'RequestController@indexmakerequest');
    Route::get('/getAllItems', 'RequestController@getAllItems');
-   Route::post('/insertRequestedItem', 'RequestController@insertRequestedItem');
+   Route::post('/insertRequest', 'RequestController@insertRequest');
 });
 
 Route::get('/security', 'UserController@checkIfAuth');
