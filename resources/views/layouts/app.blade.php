@@ -21,16 +21,18 @@
 
 
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
+    <script src="{{asset('js/sweetalert2@9.js')}}"></script>
     <script src="{{asset('js/custom.js')}}"></script>
     <script src="{{asset('js/dynamicfields.js')}}"></script>
+    <script src="{{asset('js/fontawesome.min.js')}}"></script>
 
 
     <!-- Fonts -->
     {{-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> --}}
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;1,300;1,400;1,600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/46be12d727.js" crossorigin="anonymous"></script>
+    {{-- <script src="https://kit.fontawesome.com/46be12d727.js" crossorigin="anonymous"></script> --}}
 
     <!-- Styles -->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
@@ -105,7 +107,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                </div>
+                                </div>  
                             </li>
                         @endguest
                     </ul>

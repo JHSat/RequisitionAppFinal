@@ -67,7 +67,7 @@ class RequestController extends Controller
 
                 Storage::insert($insert_data);
                 return response()->json([
-                    'data' => 'success'
+                    'success' => 'Requisition form sent!'
                 ]);
             }
         }

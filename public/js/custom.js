@@ -143,7 +143,13 @@ $(document).ready(function(){
             method: 'POST',
             data: formData,
             success: function(res){
-                console.log(res.data)
+                Toast.fire({
+                    icon: 'success',
+                    title: res.success
+                })
+                setTimeout (function(){
+                    window.location.href = "/userdashboard";
+                }, 2500)
             },
             error: function(err){
                 console.log(err)
