@@ -22,7 +22,7 @@ $(document).ready(function() {
                             // console.log(res.data[i].unit);
                             html = html+ '<option id='+res.data[i].item_id+' value='+res.data[i].item_id+'>'+res.data[i].unit+'</option>';
                         }
-                    html = html +  '</select><input id="quantity" type="number" name="quantity[]" placeholder="quantity" class="mx-1 form-control"/></div>';
+                    html = html +  '</select><input id="quantity" type="number" name="quantity[]" placeholder="quantity" class="mx-1 form-control"/><button class="btn btn-danger delete"> - </button></div>';
                     // console.log(html);
                     $(wrapper).append(html);
                     
@@ -41,24 +41,3 @@ $(document).ready(function() {
         x--;
     })
 });
-    // function getItems(){
-    //     $.ajax({
-    //         method: 'GET',
-    //         url: url,
-    //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-    //         success: function(res){
-    //             // console.log(res.data)
-    //             var i
-    //             for(i; i < res.data.length; i++){
-                    
-    //                 x++;
-    //                 // html =+ '<div class="container1">'+
-    //                 //             '<select>'+
-    //                 //                 '<option>'+res.data[i]+'</option>'
-    //                 //             '</select>'+
-    //                 //         '<div>';
-    //                 $(wrapper).html(html);
-    //             }
-    //         }
-    //     })
-    // }

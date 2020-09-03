@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::get('/userdashboard/makerequest', 'RequestController@indexmakerequest');
    Route::get('/getAllItems', 'RequestController@getAllItems');
    Route::post('/insertRequest', 'RequestController@insertRequest');
+   Route::get('/sample', 'RequestController@sampleindex');
+   Route::post('/select2item', 'RequestController@select2Item');
 });
 
 Route::get('/security', 'UserController@checkIfAuth');

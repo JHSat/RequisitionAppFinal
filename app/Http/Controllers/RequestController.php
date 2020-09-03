@@ -73,6 +73,39 @@ class RequestController extends Controller
         }
     }
 
+    public function sampleindex(){
+        return view('user.sample');
+    }
+
+    public function select2Item(Request $request){
+
+        $code = $request->code;
+        if($code == 2){
+            $html = "<div class='my-2'><select name='items[]' class='selItem form-control my-2'></select><button class='btn btn-danger delete'>Delete</button></div>";
+            return response()->json($html);
+        }
+        else{
+            $search = $request->search;
+
+            if ($search == '') {
+                $items = Items::orderby('unit', 'asc')->select('item_id','unit')->get();
+            } else {
+                $items = Items::orderby('unit', 'asc')->select('item_id','unit')->where('unit', 'like', '%'.$search.'%')->get();
+            }
+
+            $response = array();
+
+            foreach ($items as $item) {
+                $response[] = array(
+                    'id' => $item->item_id,
+                    'text' => $item->unit
+                );
+            }
+            return response()->json($response);
+        }
+        
+        
+    }
     // public function insertRequestedItem(Request $request){
     //     if($request->ajax()){
 
@@ -95,3 +128,8 @@ class RequestController extends Controller
     //     }
     // }
 }
+
+
+
+
+

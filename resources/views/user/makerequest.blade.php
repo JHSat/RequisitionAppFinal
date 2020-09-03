@@ -32,7 +32,7 @@
 
 
 <div class="row nopadding">
-    <div class="col-2 bg-white nopadding" style="height: 100vh;">
+    <div class="col-2 bg-white nopadding" style="height: 1000px;">
         <div class="container py-3">
             @if (empty(Auth::user()->avatar))
             <div class="px-1 text-center pt-5 pb-3">
@@ -86,7 +86,7 @@
                             <h5>Items</h5>
                             <hr>
                             <form name="addRequest" id="addRequest">
-                               
+                                
                                 @csrf
                                 <input type="text" name="requestee" id="requestee" value="{{Auth::user()->id}}" hidden>
                             <div class="container1">
