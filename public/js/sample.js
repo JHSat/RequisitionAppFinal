@@ -2,11 +2,11 @@
 $(document).ready(function(){
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     wrapper = '.container2'
-    // initSelect2();
+    initSelect2();
     var max_fields = 10;
     var x =0;
 
-    $('.add_form_field').click(function(e){
+    $('.add_form').click(function(e){
         e.preventDefault();
         if(x < max_fields){
             x++
@@ -31,17 +31,22 @@ $(document).ready(function(){
         else{
             alert('maximum input reached!');
         }
-        // var code = 2
-        
     })
 
     $(wrapper).on("click", ".delete", function(e){
         e.preventDefault();
         $(this).parent('div').remove();
         x--;
-        console.log(x)
+        // console.log(x)
     })
 
+    $('body').on('click', '#btnSubmitSample', function(e){
+        e.preventDefault();
+
+        var form = $('#sampleForm').serializeArray();
+
+        console.log(form)
+    })
 
 
 

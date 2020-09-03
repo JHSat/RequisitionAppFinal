@@ -81,7 +81,17 @@ class RequestController extends Controller
 
         $code = $request->code;
         if($code == 2){
-            $html = "<div class='my-2'><select name='items[]' class='selItem form-control my-2'></select><button class='btn btn-danger delete'>Delete</button></div>";
+            $html = "
+            <div class='row py-2'>
+                <div class='col'>
+                    <select class='selItem form-control' name='item[]'></select>
+                </div>
+                <div class='col'>
+                    <input type='number' name='quantity[]' class='form-control' placeholder='quantity'/>
+                </div>
+                <button class='delete btn btn-danger'> - </button>
+            </div>
+            ";
             return response()->json($html);
         }
         else{
