@@ -28,9 +28,11 @@ $factory->define(User::class, function (Faker $faker) {
 });
 
 
-// $factory->define(App\Items::class, function (Faker $faker) {
-//     return [
-//         'title' => $faker->name,
-//         'body' => $faker->text,
-//     ];
-// });
+$factory->define(App\Items::class, function (Faker $faker) {
+    return [
+        'item_id' => $faker->uuid,
+        'itemCode' => $faker->randomDigit,
+        'description' => $faker->text($maxNbChars = 200),
+        'unit' => $faker->word
+    ];
+});

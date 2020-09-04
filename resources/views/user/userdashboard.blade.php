@@ -76,7 +76,7 @@
                             <h5 class="nopadding">Requests</h5>
                         </div>
                         <div class="col nopadding">
-                            <a href="/userdashboard/makerequest" class="btn btn-primary float-right">Make a request</a>
+                            <a href="/sample" class="btn btn-primary float-right">Make a request</a>
                         </div>
                     </div>
                 </div>

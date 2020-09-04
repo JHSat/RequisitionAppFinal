@@ -1,5 +1,18 @@
 
 $(document).ready(function(){
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-left',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+    
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     wrapper = '.container2'
     initSelect2();
@@ -10,7 +23,7 @@ $(document).ready(function(){
         e.preventDefault();
         if(x < max_fields){
             x++
-            console.log(x)
+            // console.log(x)
             // $(wrapper).append('<div class="d-flex my-2"><select class="form-control mx-1 items_id"><option>Select Item</option><option>...</option><option id ="itemdesc[]" name="">...</option></select><input type="number" name="mytext[]" placeholder="quantity" class="form-control"/><a href="#" class="delete btn btn-danger mx-2"> - </a></div>')
 
             $.ajax({
@@ -40,12 +53,40 @@ $(document).ready(function(){
         // console.log(x)
     })
 
+    // $('body').on('click', '#btnSubmitSample', function(e){
+    //     e.preventDefault();
+
+    //     var form = $('#sampleForm').serializeArray();
+
+    //     console.log(form)
+    // })
+
     $('body').on('click', '#btnSubmitSample', function(e){
         e.preventDefault();
 
-        var form = $('#sampleForm').serializeArray();
+        var formData = $('#sampleForm').serializeArray();
+        var url = '/insertRequest'
 
-        console.log(form)
+
+        console.log(formData)
+        $.ajax({
+            url: url,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            method: 'POST',
+            data: formData,
+            success: function(res){
+                Toast.fire({
+                    icon: 'success',
+                    title: res.success
+                })
+                setTimeout (function(){
+                    window.location.href = "/userdashboard";
+                }, 2500)
+            },
+            error: function(err){
+                console.log(err)
+            }
+        })
     })
 
 

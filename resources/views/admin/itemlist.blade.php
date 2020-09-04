@@ -180,6 +180,7 @@
         //show DataTables
         $('#myTable').DataTable({
             processing: true,
+            responsive: true,
             serverSide: true,
             ajax: {
                 url: "{{ route('get.items') }}"

@@ -74,7 +74,11 @@ class RequestController extends Controller
     }
 
     public function sampleindex(){
-        return view('user.sample');
+
+
+        $date = date('Y-m-d');
+
+        return view('user.sample')->with('date', $date);
     }
 
     public function select2Item(Request $request){
@@ -113,8 +117,6 @@ class RequestController extends Controller
             }
             return response()->json($response);
         }
-        
-        
     }
     // public function insertRequestedItem(Request $request){
     //     if($request->ajax()){

@@ -93,6 +93,7 @@ $(document).ready(function(){
                     icon: 'success',
                     title: response.success
                 })
+                $('#formAddItem').trigger('reset')
                 refreshTable();
             },
             error: function(error){
@@ -131,31 +132,31 @@ $(document).ready(function(){
     })
 
 
-    $('body').on('click', '#btnInsertRequest', function(e){
-        e.preventDefault();
+    // $('body').on('click', '#btnInsertRequest', function(e){
+    //     e.preventDefault();
 
-        var formData = $('#addRequest').serializeArray();
-        var url = '/insertRequest'
+    //     var formData = $('#addRequest').serializeArray();
+    //     var url = '/insertRequest'
 
 
-        console.log(formData)
-        // $.ajax({
-        //     url: url,
-        //     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        //     method: 'POST',
-        //     data: formData,
-        //     success: function(res){
-        //         Toast.fire({
-        //             icon: 'success',
-        //             title: res.success
-        //         })
-        //         setTimeout (function(){
-        //             window.location.href = "/userdashboard";
-        //         }, 2500)
-        //     },
-        //     error: function(err){
-        //         console.log(err)
-        //     }
-        // })
-    })
+    //     console.log(formData)
+    //     $.ajax({
+    //         url: url,
+    //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+    //         method: 'POST',
+    //         data: formData,
+    //         success: function(res){
+    //             Toast.fire({
+    //                 icon: 'success',
+    //                 title: res.success
+    //             })
+    //             setTimeout (function(){
+    //                 window.location.href = "/userdashboard";
+    //             }, 2500)
+    //         },
+    //         error: function(err){
+    //             console.log(err)
+    //         }
+    //     })
+    // })
 })
