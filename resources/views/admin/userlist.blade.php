@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-{{-- modal  --}}
+{{-- modal display --}}
 <div class="modal fade" id="userModal" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -16,6 +16,7 @@
                     <span>ID Number: </span> <span id="id"></span><br><br>
                     <span>Name: </span> <span id="name"></span><br><br>
                     <span>Email: </span> <span id="email"></span><br><br>
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -127,6 +128,26 @@
     </div>
     <div class="col-md nopadding">
         <div class="container">
+            @if (Auth::user()->department == 0)
+            <div class="card mt-3" style="max-width: 18rem;">
+                <div class="card-header">Select</div>
+                <div class="card-body text-dark">
+                  <p class="card-text">Please select a department to view employees</p>
+                    <form>
+                        <label for=""><span class="text-success"> Select a department: </span></label>
+                        <select name="" id="" class="form-control">
+                            <option value="">...</option>
+                            @foreach ($departments as $department)
+                                <option value="">{{$department->department_name}}</option>
+                            @endforeach
+                        </select>
+                        <div class="py-3">
+                            <button class="btn btn-block btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+              </div>
+            @else
             <div class="card ml-auto mr-auto my-4">
                 <div class="card-header">
                     <div class="row">
@@ -148,9 +169,10 @@
                                 <td>Action</td>
                             </tr>
                         </thead>
-                    </table>
+                    </table>    
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

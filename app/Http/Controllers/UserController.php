@@ -105,13 +105,30 @@ class UserController extends Controller
             'emPosition' => 'required',
         ]);
         $password = $request->password;
-        $user = new User([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($password),
-            'department' => $request->department,
-            'emPosition' => $request->emPosition
-        ]);
+        $position = $request->emPosition;
+        if($position == 'employee'){
+            $usertype = 'user';
+            $user = new User([
+                'name' => $request->name,
+                'email' => $request->email,
+                'usertype' => $usertype,
+                'password' => Hash::make($password),
+                'department' => $request->department,
+                'position' => $position
+            ]);
+        }
+        else{
+            $usertype = 'admin';
+            $user = new User([
+                'name' => $request->name,
+                'email' => $request->email,
+                'usertype' => $usertype,
+                'password' => Hash::make($password),
+                'department' => $request->department,
+                'position' => $position
+            ]);
+        }
+        
 
         $user->save();
         return response()->json([
