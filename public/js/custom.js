@@ -1,4 +1,4 @@
-// const { method } = require("lodash");
+
 
 $(document).ready(function(){
     function refreshTable() {
@@ -159,4 +159,40 @@ $(document).ready(function(){
     //         }
     //     })
     // })
+
+
+
+
+    $('#btnAddUser').click(function(e){
+        e.preventDefault();
+        var formData = $('#addUserForm').serializeArray();
+        if(emPosition.value == "" || department.value == "" || name.value == ""){
+            alert('Please populate form fields')
+        }
+    
+        else{
+            console.log(email.value)
+
+            $.ajax({
+                type: 'POST',
+                url: '/addUser',
+                data: formData,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function(res){
+                    $('#addUserModal').modal('hide')
+                    Toast.fire({
+                        icon: 'success',
+                        title: res.success
+                    })
+                    refreshTable();
+                },
+                error: function(res){
+                    Toast.fire({
+                        icon: 'error',
+                        title: res.error
+                    })
+                }
+            })
+        }
+    })
 })

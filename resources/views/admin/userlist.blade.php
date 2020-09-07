@@ -27,6 +27,64 @@
 {{-- modal end  --}}
 
 
+
+{{-- modal  --}}
+<div class="modal fade" id="addUserModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form id="addUserForm">
+                        <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text" id="name" name="name" class="form-control" value="Default Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" value="default@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Password</label>
+                            <input type="password" id="password" name="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Assigned to:</label>
+                            <select name="department" id="department" class="form-control" required>
+                                <option value="">...</option>
+                                @foreach ($departments as $department)
+                                    <option value="{{$department->id}}">{{$department->department_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Position:</label>
+                            <select name="emPosition" id="emPosition" class="form-control" required>
+                                <option value="">...</option>
+                                <option value="supervisor">Supervisor</option>
+                                <option value="employee">Regular Employee</option>
+                            </select>
+                        </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit" id="btnAddUser">Save</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- modal end  --}}
+
+
+
+
 <div class="row nopadding">
     <div class="col-md-2 bg-light nopadding" style="height: 100vh;">
         <div class="container py-3">
@@ -71,7 +129,14 @@
         <div class="container">
             <div class="card ml-auto mr-auto my-4">
                 <div class="card-header">
-                    <h5 class="py-3">Employees</h5>
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="py-3">Employees</h5>
+                        </div>
+                        <div class="col">
+                            <button type="button" data-target="#addUserModal" class="btn btn-primary float-right" data-toggle="modal">Add +</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="myTable">

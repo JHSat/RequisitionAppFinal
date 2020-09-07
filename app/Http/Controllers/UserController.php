@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Items;
+use App\Department;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 use Validator;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -20,12 +22,12 @@ class UserController extends Controller
         return view('admin.admindashboard')->with('userCount', $userCount)->with('itemCount', $itemCount);
     }
     public function showUsers(){
-
-        return view('admin.userlist');
+        $departments = Department::all();
+        return view('admin.userlist')->with('departments', $departments);
     }
 
     public function getUsers(){
-        $data = User::where('usertype', '=', 'user');
+        $data = User::where('usertype', '=', 'user')->where('department', '=', Auth::user()->department);
         return Datatables::of($data)
         ->addColumn('action', function($row){
             // $btn = '<a href="javascript:void(0)" class="edit btn btn-info btn-sm">View</a> ';
@@ -91,5 +93,29 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->save();
         return redirect()->route('myprofile')->withSuccessMessage('Successfully updated!');
+    }
+
+    public function addUser(Request $request){
+
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'department' => 'required',
+            'emPosition' => 'required',
+        ]);
+        $password = $request->password;
+        $user = new User([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($password),
+            'department' => $request->department,
+            'emPosition' => $request->emPosition
+        ]);
+
+        $user->save();
+        return response()->json([
+            'success' => 'User added successfully'
+        ]);
     }
 }

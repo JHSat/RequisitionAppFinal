@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::post('/admindashboard/uploadPhoto', 'UserController@uploadPhoto');
     Route::get('/admindashboard/getusers', 'UserController@getUsers')->name('get.users');
     Route::get('/userDetails/{id}', 'UserController@userDetails');
+    Route::post('/addUser', 'UserController@addUser');
 });
 
 Route::group(['middleware' => ['auth','user']], function () {
