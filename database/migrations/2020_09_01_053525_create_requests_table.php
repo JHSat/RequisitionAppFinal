@@ -17,11 +17,14 @@ class CreateRequestsTable extends Migration
             $table->string('req_id', 20)->primary();
             $table->string('transac_code', 20)->nullable();
             $table->string('requestee', 10)->nullable();
-            $table->date('processed_date')->nullable();
-            $table->string('processed_by', 10)->nullable();
-            $table->string('approved_by', 10)->nullable();
+            $table->datetime('requestedDate')->nullable();
             $table->string('status', 20)->nullable();
-            // $table->timestamps();
+            $table->string('authorizedBy', 10)->nullable();
+            $table->datetime('authorizedDate')->nullable();
+            $table->string('confirmedBy', 10)->nullable();
+            $table->datetime('confirmedDate')->nullable();
+            $table->datetime('processedDate')->nullable();
+            $table->timestamps();
         });
     }
 

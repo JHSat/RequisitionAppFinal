@@ -26,7 +26,7 @@
     <script src="{{asset('js/sweetalert2@9.js')}}"></script>
     <script src="{{asset('js/custom.js')}}"></script>
     {{-- <script src="{{asset('js/dynamicfields.js')}}"></script> --}}
-    <script src="{{asset('js/fontawesome.min.js')}}"></script>
+    {{-- <script src="{{asset('js/fontawesome.min.js')}}"></script> --}}
     <script src="{{asset('js/sample.js')}}"></script>
 
 

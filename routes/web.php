@@ -39,12 +39,11 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/admindashboard/getusers', 'UserController@getUsers')->name('get.users');
     Route::get('/userDetails/{id}', 'UserController@userDetails');
     Route::post('/addUser', 'UserController@addUser');
+    Route::put('/updateDeptUser/{id}', 'UserController@updateDeptUser');
 });
 
 Route::group(['middleware' => ['auth','user']], function () {
-   Route::get('/userdashboard', function () {
-        return view('user.userdashboard');   
-   });
+   Route::get('/userdashboard', 'UserController@userIndex');
    Route::post('/userdashboard/uploadPhoto', 'UserController@uploadPhoto');
    Route::get('/userdashboard/myprofile', 'UserController@showUserProfile')->name('myprofile');
    Route::post('/userdashboard/updateProfile/{id}', 'UserController@updateProfile');
@@ -54,6 +53,7 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::post('/insertRequest', 'RequestController@insertRequest');
    Route::get('/sample', 'RequestController@sampleindex');
    Route::post('/select2item', 'RequestController@select2Item');
+   Route::get('/userdashboard/viewRequest/{id}', 'RequestController@requestIndex');
 });
 
 Route::get('/security', 'UserController@checkIfAuth');

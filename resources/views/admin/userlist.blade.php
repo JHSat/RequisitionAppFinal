@@ -16,6 +16,7 @@
                     <span>ID Number: </span> <span id="id"></span><br><br>
                     <span>Name: </span> <span id="name"></span><br><br>
                     <span>Email: </span> <span id="email"></span><br><br>
+                    <span>Department: </span> <span id="department"></span><br><br>
 
                 </div>
             </div>
@@ -133,16 +134,17 @@
                 <div class="card-header">Select</div>
                 <div class="card-body text-dark">
                   <p class="card-text">Please select a department to view employees</p>
-                    <form>
+                    <form id="updateDeptAdmin">
+                        <input type="text" value="{{Auth::user()->id}}" name="user_id" id="user_id" hidden>
                         <label for=""><span class="text-success"> Select a department: </span></label>
-                        <select name="" id="" class="form-control">
+                        <select name="dept" id="dept" class="form-control">
                             <option value="">...</option>
                             @foreach ($departments as $department)
-                                <option value="">{{$department->department_name}}</option>
+                                <option value="{{$department->id}}">{{$department->department_name}}</option>
                             @endforeach
                         </select>
                         <div class="py-3">
-                            <button class="btn btn-block btn-primary">Submit</button>
+                            <button type="submit" id="btnUpdateDept" class="btn btn-block btn-primary">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -166,6 +168,7 @@
                                 <td>#</td>
                                 <td>Name</td>
                                 <td>Email</td>
+                                <td>Department</td>
                                 <td>Action</td>
                             </tr>
                         </thead>
@@ -189,6 +192,7 @@
                 { data: 'id', name: 'id'},
                 { data: 'name', name: 'name'},
                 { data: 'email', name: 'email'},
+                { data: 'department_name', name: 'department_name'},
                 { data: 'action', name: 'action'}
             ]
         });

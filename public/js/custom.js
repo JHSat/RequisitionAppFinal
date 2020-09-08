@@ -23,11 +23,12 @@ $(document).ready(function(){
     $('body').on('click', '.btnViewUserDetails', function(){
         $('#userModal').modal('show');
         var user = $(this).data('id');
-        $.get('/userDetails/' + user, function(data){
-            $('#id').text(data.id);
-            $('#name').text(data.name);
-            $('#email').text(data.email);
-            console.log(data);
+        $.get('/userDetails/' + user, function(res){
+            $('#id').text(res.user.id);
+            $('#name').text(res.user.name);
+            $('#email').text(res.user.email);
+            $('#department').text(res.dept.department_name);
+            // console.log(res.user.id);
         })
     })
 
@@ -172,7 +173,6 @@ $(document).ready(function(){
     
         else{
             console.log(email.value)
-
             $.ajax({
                 type: 'POST',
                 url: '/addUser',
@@ -194,5 +194,41 @@ $(document).ready(function(){
                 }
             })
         }
+    })
+
+    $('body').on('click', '#btnUpdateDept', function(e){
+        e.preventDefault();
+
+        var formData = {
+            dept: $('#dept').val(),
+            id: $('#user_id').val()
+        }
+
+        if (formData.dept == "") {
+            alert('Please select a department!')
+        } else {
+            $.ajax({
+                url: '/updateDeptUser/' + formData.id,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type: 'PUT',
+                data: formData,
+                success: function(res){
+                    Toast.fire({
+                        icon: 'success',
+                        title: res.success
+                    })
+                    setTimeout (function(){
+                        location.reload();
+                    }, 2000)
+                },
+                error: function(){
+                    Toast.fire({
+                        icon: 'error',
+                        title: res.error
+                    })  
+                }
+            }) 
+        }
+        
     })
 })

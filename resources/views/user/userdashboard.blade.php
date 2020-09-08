@@ -69,7 +69,7 @@
     </div>
     <div class="col nopadding">
         <div class="container py-4">
-            <div class="card w-75 m-auto">
+            <div class="card m-auto">
                 <div class="card-header">
                     <div class="row nopadding">
                         <div class="col nopadding vertalign">
@@ -81,15 +81,18 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <a href="">
+                    @foreach ($requests as $request)
                         <div class="container border-bottom pt-3">
-                            <h5>Request 1</h5>
+                            <h5>{{$request->req_id}}</h5>
                             <div class="row nopadding">
-                                <div class="col nopadding"><pre>This is a request</pre></div>
-                                <div class="col nopadding text-right"><pre class="text-muted">Requested on: 08/11/2020</pre></div>
+                                <div class="col nopadding"><pre>Requestee: <span>{{Auth::user()->name}}</span></pre></div>
+                                <div class="col nopadding text-right"><pre class="text-muted">Requested on: {{$request->requestedDate}}</pre></div>
+                            </div>
+                            <div class="">
+                                <small><a href="/userdashboard/viewRequest/{{$request->req_id}}">View  >  > </a></small>
                             </div>
                         </div>
-                    </a>
+                    @endforeach
                 </div>
             </div>
         </div>

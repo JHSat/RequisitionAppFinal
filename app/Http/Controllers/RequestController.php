@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Items;
+use App\User;
 use App\Requests;
 use App\Storage;
+use Auth;
+use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 
@@ -40,14 +43,14 @@ class RequestController extends Controller
             $req_id = IdGenerator::generate($con1);
             $transac_code = IdGenerator::generate($con2);
             $requestee = $request->requestee;
-            $date = date('Y-m-d');
+            $date = date('Y-m-d H:i:s');
             $status = 'O';
 
             $req = new Requests([
                 'req_id' => $req_id,
                 'transac_code' => $transac_code,
                 'requestee' => $requestee,
-                'processed_date' => $date,
+                'requestedDate' => $date,
                 'status' => $status
             ]);
 
@@ -117,6 +120,22 @@ class RequestController extends Controller
             }
             return response()->json($response);
         }
+    }
+
+    public function requestIndex($id){
+        
+        $req = Requests::find($id);
+        if(Auth::user()->id == $req->requestee){
+            $request = Requests::find($id);
+            $user = User::where('id', '=', $request->requestee)->first();
+
+            return view('user.request')->with('request', $request)->with('user', $user);
+        }
+        else{
+            return redirect()->back();
+        }
+
+        
     }
     // public function insertRequestedItem(Request $request){
     //     if($request->ajax()){

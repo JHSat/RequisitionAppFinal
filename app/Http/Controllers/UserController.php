@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Items;
+use App\Requests;
 use App\Department;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 use Validator;
+use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -27,20 +29,28 @@ class UserController extends Controller
     }
 
     public function getUsers(){
-        $data = User::where('usertype', '=', 'user')->where('department', '=', Auth::user()->department);
+        // $data = User::where('usertype', '=', 'user')->where('department', '=', Auth::user()->department);
+
+        $dept = Auth::user()->department;
+        $sql = "SELECT * FROM users join department on users.department = department.id WHERE usertype = 'user' && department = ".$dept;
+
+        $data = DB::select($sql);
         return Datatables::of($data)
         ->addColumn('action', function($row){
-            // $btn = '<a href="javascript:void(0)" class="edit btn btn-info btn-sm">View</a> ';
             $btn = '<a href="javascript:void(0)" data-id="'.$row->id.'" class="btnViewUserDetails btn btn-primary btn-sm">View Details</a> ';
-
             return $btn;
         })
         ->make(true);
     }
 
     public function userDetails($id){
-        $data = User::find($id);
-        return response()->json($data);
+        $user = User::find($id);
+        $dept = Department::find($user->department);
+        // $dept_name = $dept->department_name;
+        return response()->json([
+            'user' => $user,
+            'dept' => $dept
+        ]);
     }
 
     public function checkIfAuth(){
@@ -51,7 +61,11 @@ class UserController extends Controller
                 return view('admin.admindashboard')->with('userCount', $userCount)->with('itemCount', $itemCount);
             }
             else{
-                return view('user.userdashboard');
+                $user_id = Auth::user()->id;
+                $requests = Requests::where('requestee', '=', $user_id)->get();
+                // dd($requests);
+                return view('user.userdashboard')->with('requests', $requests);
+                // return view('user.userdashboard');
             }
         }
         else{
@@ -134,5 +148,27 @@ class UserController extends Controller
         return response()->json([
             'success' => 'User added successfully'
         ]);
+    }
+
+    public function updateDeptUser(Request $request, $id){
+
+        $user_details = User::find($id);
+        // $dept_name = Department::find($user->department);
+        $user_details->department = $request->dept;
+        $user_details->save();
+        $dept_details = Department::find($user_details->department);
+
+        return response()->json([
+            "success" => "Successfully registered in ".$dept_details->department_name."!"
+        ]);
+    }
+
+    public function userIndex(){
+
+        $user_id = Auth::user()->id;
+        $requests = Requests::where('requestee', '=', $user_id)->get();
+        // dd($requests);
+        return view('user.userdashboard')->with('requests', $requests);
+
     }
 }
