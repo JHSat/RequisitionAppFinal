@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Items;
+use App\Department;
+use Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -12,7 +14,8 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 class ItemController extends Controller
 {
     public function showItems(){
-        return view('admin.itemlist');
+        $dept = Department::where('id', '=', Auth::user()->department)->first();
+        return view('admin.itemlist')->with('dept', $dept);
     }
 
     public function getItems(){

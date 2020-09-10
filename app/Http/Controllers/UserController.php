@@ -21,11 +21,14 @@ class UserController extends Controller
     public function userCount(){
         $userCount = User::where('usertype', '=', 'user')->get();
         $itemCount = Items::all();
-        return view('admin.admindashboard')->with('userCount', $userCount)->with('itemCount', $itemCount);
+        $dept = Department::where('id', '=', Auth::user()->department)->first();
+        return view('admin.admindashboard')->with('userCount', $userCount)->with('itemCount', $itemCount)->with('dept', $dept);
     }
     public function showUsers(){
         $departments = Department::all();
-        return view('admin.userlist')->with('departments', $departments);
+        $dept = Department::where('id', '=', Auth::user()->department)->first();
+        
+        return view('admin.userlist')->with('departments', $departments)->with('dept', $dept);
     }
 
     public function getUsers(){
@@ -166,9 +169,14 @@ class UserController extends Controller
     public function userIndex(){
 
         $user_id = Auth::user()->id;
-        $requests = Requests::where('requestee', '=', $user_id)->get();
+        $requests = Requests::where('requestee', '=', $user_id)->orderBy('req_id', 'DESC')->get();
+        $dept = Department::where('id', '=', Auth::user()->department)->first();
         // dd($requests);
-        return view('user.userdashboard')->with('requests', $requests);
+        return view('user.userdashboard')->with('requests', $requests)->with('dept', $dept);
 
+    }
+
+    public function requestIndex(){
+        return view('admin.requests');
     }
 }

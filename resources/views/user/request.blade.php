@@ -17,13 +17,7 @@
                     <span class="text-secondary">Transaction Code: </span><small>{{$request->transac_code}}</small>
                 </div>
                 <div class="my-1">
-                    <span class="text-secondary">Requestee: </span>
-                    {{-- @foreach ($user as $use) --}}
-                        <small>
-                            {{$user->name}}
-                        </small>   
-                    {{-- @endforeach --}}
-                    
+                    <span class="text-secondary">Requestee: </span><small>{{$user->name}}</small>   
                 </div>
                 <div class="my-1">
                     <span class="text-secondary">Request Date: </span><small>{{$request->requestedDate}}</small>
@@ -32,9 +26,24 @@
                     <span class="text-secondary">Status: </span><small class="text-danger">{{$request->status}}</small>
                 </div>
             </div>
-            <div class="col text-right">
-                <button class="btn btn-primary">Edit</button>
-                <button class="btn btn-danger">Delete</button>
+            <div class="col">
+                <a href="/editRequest/{{$request->req_id}}" class="float-right btn btn-primary mx-1" type="submit">Edit</a>
+            <button class="float-right btn btn-danger mx-1" type="submit" id="btnDeleteRequest" data-id="{{$request->req_id}}">Delete</button>
+                <div class="my-1">
+                    <span class="text-secondary">Authorized by: </span><small class="text-danger">{{$request->authorizedBy}}</small>
+                </div>
+                <div class="my-1">
+                    <span class="text-secondary">Authorized Date: </span><small class="text-danger">{{$request->authorizedDate}}</small>
+                </div>
+                <div class="my-1">
+                    <span class="text-secondary">Confirmed Date: </span><small class="text-danger">{{$request->confirmedDate}}</small>
+                </div>
+                <div class="my-1">
+                    <span class="text-secondary">Confirmed by: </span><small class="text-danger">{{$request->confirmedBy}}</small>
+                </div>
+                <div class="my-1">
+                    <span class="text-secondary">Processed Date: </span><small class="text-danger">{{$request->processedDate}}</small>
+                </div>
             </div>
         </div>
         <h5>Items</h5>
@@ -49,26 +58,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mouse</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Mouse</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Mouse</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Mouse</td>
-                        <td>2</td>
-                    </tr>
+                    @foreach ($data_items as $item)
+                        <tr>
+                            <td>{{$item->item_id}}</td>
+                            <td>{{$item->unit}}</td>
+                            <td>{{$item->quantity}}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

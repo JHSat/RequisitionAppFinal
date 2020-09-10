@@ -10,12 +10,15 @@ use App\Storage;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Yajra\Datatables\Datatables;
+
 
 
 class RequestController extends Controller
 {    
     public function indexmakerequest(){
-        return view('user.makerequest');
+        $date = date('Y-m-d');
+        return view('user.makerequest')->with('date', $date);
     }
 
     public function getAllItems(){
@@ -128,36 +131,95 @@ class RequestController extends Controller
         if(Auth::user()->id == $req->requestee){
             $request = Requests::find($id);
             $user = User::where('id', '=', $request->requestee)->first();
+            $sql = "SELECT * FROM storage JOIN items on storage.item_id = items.item_id WHERE transac_code = '".$request->transac_code."'";
+            $data_items = DB::select($sql);
 
-            return view('user.request')->with('request', $request)->with('user', $user);
+            return view('user.request')->with('request', $request)->with('user', $user)->with('data_items', $data_items);
         }
         else{
             return redirect()->back();
         }
-
-        
     }
-    // public function insertRequestedItem(Request $request){
-    //     if($request->ajax()){
+    public function deleteRequest(Request $request, $id){
+        $reqDel = Requests::find($id);
 
-    //         $item_id = $request->item;
-    //         $quantity = $request->quantity;
+        if (Auth::user()->id == $reqDel->requestee) {
+            $itemDel = Storage::where('transac_code', '=', $reqDel->transac_code);
+        
+            $itemDel->delete();
+            $reqDel->delete();
+    
+            return response()->json([
+                'success' => 'Request deleted successfully!'
+            ]);
+        } else {
+            return redirect()->back();
+        }
+    }
 
-    //         for($count = 0;  $count < count($item_id); $count++){
-    //             $data = array(
-    //                 'item_id' => $item_id[$count],
-    //                 'quantity' => $quantity[$count],
-    //             );
+    public function editRequest($id){
 
-    //             $insert_data[] = $data;
-    //         }
+        $req = Requests::find($id);
+        return view('user.editrequest')->with('req', $req);
 
-    //         Requests::insert($insert_data);
-    //         return response()->json([
-    //             'data' => 'There is a request from ajax'
-    //         ]);
-    //     }
-    // }
+    }
+
+    public function getEditItems($id){
+        $req_id = Requests::find($id);
+
+        $sql = "SELECT * FROM storage 
+                join items on storage.item_id = items.item_id 
+                WHERE transac_code = '".$req_id->transac_code."'";
+
+        $data = DB::select($sql);
+        // dd($data);
+
+        return Datatables::of($data)
+        ->addColumn('action', function($row){
+            $btn = '<a href="javascript:void(0)" data-id="'.$row->item_id.'" class="btnRemoveItem btn btn-danger btn-sm">Remove item</a>';
+            return $btn;
+        })
+        ->make(true);
+    }
+
+    public function removeItem(Request $request){
+
+        DB::delete("DELETE FROM storage 
+                    WHERE item_id = '".$request->item_id."'
+                    AND transac_code = '".$request->transac_code."'");
+
+        return response()->json([
+            'success' => 'Item removed successfully'
+        ]);
+    }
+
+    public function updateRequestItem(Request $request){
+        if($request->ajax()){
+            $item_id = $request->item;
+            $quantity = $request->quantity;
+            $transac_code = $request->transac_code;
+            
+            for($count = 0;  $count < count($item_id); $count++){
+                $data = array(
+                    'item_id' => $item_id[$count],
+                    'transac_code' => $transac_code,
+                    'quantity' => $quantity[$count],
+                );
+                $insert_data[] = $data;
+            }
+
+            Storage::insert($insert_data);
+            return response()->json([
+                'success' => 'Edited successfully'
+            ]);
+            
+        }
+    }
+    
+
+    public function requestAdminIndex(){
+        return view('admin.requests');
+    }
 }
 
 

@@ -231,4 +231,110 @@ $(document).ready(function(){
         }
         
     })
+
+    $('#btnDeleteRequest').click(function(e){
+        e.preventDefault();
+
+        var request = $(this).data('id')
+        // confirmDelete();
+        // console.log(request)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: '/deleteRequest/' + request,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    type: 'DELETE',
+                    data: { request_id: request},
+                    success: function(res){
+                        Toast.fire({
+                            icon: 'success',
+                            title: res.success
+                        })
+                        setTimeout(function(){
+                            window.location = '/userdashboard'
+                        }, 2000) 
+                    },
+                    error: function(err){
+                        console.log(err)
+                    }
+                })
+            }
+        })
+
+    })
+
+
+    $('body').on('click', '.btnRemoveItem', function(e){
+        e.preventDefault();
+        var item_id = $(this).data('id')
+        var transac_code = $('#transac_code').val()
+        // var formData = $('#formRemoveItem').serializeArray();
+        // console.log(item_id, transac_code)
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/removeItem',
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    method: 'DELETE',
+                    data: {
+                        transac_code: transac_code,
+                        item_id: item_id
+                    }, 
+                    success: function(res){
+                        Toast.fire({
+                            icon: 'success',
+                            title: res.success
+                        })
+                        refreshTable()
+                        // console.log(res)
+                    },
+                    error: function(err){   
+                        console.log(err)
+                    }
+                })
+            }
+        })
+    })
+
+    $('body').on('click', '#btnAddEditItem', function(e){
+        e.preventDefault()
+
+        var formData = $('#editItemForm').serializeArray()
+        console.log('clicked!', formData)
+
+        $.ajax({
+            url: '/updateRequestItem',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            method: 'POST',
+            data: formData,
+            success: function(res){
+                $('#editItemForm').trigger('reset')
+                Toast.fire({
+                    icon: 'success',
+                    title: res.success
+                })
+                refreshTable()
+            },
+            error: function(err){
+                console.log(err)
+            }
+        })
+    })
 })

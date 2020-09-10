@@ -76,7 +76,7 @@
                 <div class="card-body">
                     <div class="container">
                         <div class="py-3">
-                            <small>Date: </small><small>10/01/2020</small>
+                            <small>Date: </small><small>{{$date}}</small>
                         </div>
                         <div class="form-group">
                             <label for="">Requestee:</label>

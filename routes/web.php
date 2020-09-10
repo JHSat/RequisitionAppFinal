@@ -27,6 +27,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/admindashboard','UserController@userCount');
+    Route::get('/admindashboard/requests', 'RequestController@requestAdminIndex');
     Route::get('/admindashboard/users', 'UserController@showUsers')->name('admin.users');
     Route::get('/admindashboard/items', 'ItemController@showItems')->name('admin.itemlist');
     Route::get('/getItems', 'ItemController@getItems')->name('get.items');
@@ -54,6 +55,12 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::get('/sample', 'RequestController@sampleindex');
    Route::post('/select2item', 'RequestController@select2Item');
    Route::get('/userdashboard/viewRequest/{id}', 'RequestController@requestIndex');
+   Route::delete('/deleteRequest/{id}', 'RequestController@deleteRequest');
+   Route::get('/editRequest/{id}', 'RequestController@editRequest');
+   Route::get('/getEditItems/{id}', 'RequestController@getEditItems');
+   Route::delete('/removeItem', 'RequestController@removeItem');
+   Route::post('/updateRequestItem', 'RequestController@updateRequestItem');
+
 });
 
 Route::get('/security', 'UserController@checkIfAuth');

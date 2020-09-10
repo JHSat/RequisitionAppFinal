@@ -47,7 +47,9 @@
             <div class="px-1 text-center py-3">
                 <img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="..." class="rounded-circle" width="120"><br>
                 <h5>{{Auth::user()->name}}</h5><br>
-                <small>{{Auth::user()->usertype}}</small>
+                <small>{{Auth::user()->usertype}} /</small>
+                <small>{{Auth::user()->position}}</small><br>
+                <small>{{$dept->department_name}}</small>
             </div> 
             @endif
             <div class="px-1">
@@ -69,6 +71,24 @@
     </div>
     <div class="col nopadding">
         <div class="container py-4">
+            <div class="container">
+                <div class="mb-2">
+                    Legend:
+                </div>
+                <div>
+                    <small>Pending: </small><small class="text-secondary">O</small>
+                </div>
+                <div>
+                    <small>Authorized: </small><small class="text-danger">A</small>
+                </div>
+                <div>
+                    <small>Confirmed: </small><small class="text-primary">C</small>
+                </div>
+                <div>
+                    <small>Process: </small><small class="text-success">P</small>
+                </div>
+                <hr>
+            </div>
             <div class="card m-auto">
                 <div class="card-header">
                     <div class="row nopadding">
@@ -85,7 +105,7 @@
                         <div class="container border-bottom pt-3">
                             <h5>{{$request->req_id}}</h5>
                             <div class="row nopadding">
-                                <div class="col nopadding"><pre>Requestee: <span>{{Auth::user()->name}}</span></pre></div>
+                                <div class="col nopadding"><pre>Status: <span>{{$request->status}}</span></pre></div>
                                 <div class="col nopadding text-right"><pre class="text-muted">Requested on: {{$request->requestedDate}}</pre></div>
                             </div>
                             <div class="">

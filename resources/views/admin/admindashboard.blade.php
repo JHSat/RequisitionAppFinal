@@ -35,7 +35,9 @@
                 <div class="px-1 text-center pt-5 pb-3">
                     <h5>{{Auth::user()->name}}</h5><br>
                     <div class="pb-5">
-                        <small>{{Auth::user()->usertype}}</small>
+                        <small>{{Auth::user()->usertype}} /</small>
+                        <small>{{Auth::user()->position}}</small><br>
+                        <small>{{$dept->department_name}} Department</small>
                     </div>
                     <small>Click below to update your profile</small>
                     <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#exampleModal">Add photo</button>
@@ -44,7 +46,10 @@
             <div class="px-1 text-center py-3">
                 <img src="{{asset('/storage/images/'.Auth::user()->avatar)}}" alt="..." class="rounded-circle img-fluid" width="120"><br>
                 <h5>{{Auth::user()->name}}</h5><br>
-                <small>{{Auth::user()->usertype}}</small>
+                <small>{{Auth::user()->usertype}} /</small>
+                <small>{{Auth::user()->position}}</small><br>
+                <small>{{$dept->department_name}} Department</small>
+                
             </div> 
             @endif
             <div class="px-1">
@@ -60,7 +65,7 @@
             </div>
             <hr>
             <div class="px-1">
-                <a href="" class="text-decoration-none text-secondary"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>Requests</span></a>
+                <a href="/admindashboard/requests" class="text-decoration-none text-secondary"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span>Requests</span></a>
             </div>
             <hr>
             <div class="px-1">
