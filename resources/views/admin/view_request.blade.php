@@ -43,10 +43,12 @@
                             <small class="text-success">waiting for manager's confirmation</small>
                         </div>
                     @else
-                        <button class="btn btn-success float-right">Confirm</button>
+                        <button id="confirmRequest" type="sumbit" data-id="{{$req->req_id}}" class="btn btn-success float-right">Confirm</button>
                     @endif
                 @elseif($req->status == 'C' or $req->status == 'P')
-                    <div class="float-right"></div>
+                    <div class="float-right">
+                        <small class="text-success">Completed!</small>
+                    </div>
                 @endif
                 <div class="my-1">
                     @if (isset($author))
