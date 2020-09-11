@@ -176,7 +176,5 @@ class UserController extends Controller
 
     }
 
-    public function requestIndex(){
-        return view('admin.requests');
-    }
+    
 }

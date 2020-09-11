@@ -1,0 +1,19 @@
+Items
+Wired-Mouse 
+Wireless-Mouse 
+Keyboard 
+AVR 
+Monitor 
+Lan Cable
+Power Cord
+Office Chair
+Tablet
+Telephone
+
+DEPARTMENT
+Accounting
+IT
+Inventory Control
+Purchasing
+Payroll
+Payables

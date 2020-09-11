@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Items;
 use App\User;
+use App\Department;
 use App\Requests;
 use App\Storage;
 use Auth;
@@ -218,7 +219,12 @@ class RequestController extends Controller
     
 
     public function requestAdminIndex(){
-        return view('admin.requests');
+        $id = Auth::user()->department;
+        $sql = "SELECT * FROM requests JOIN users on requests.requestee = users.id JOIN department on users.department = department.id WHERE users.department = $id ORDER BY requests.req_id DESC";
+        
+        $dept_name = Department::where('id', '=', $id)->first();
+        $data = DB::select($sql);        
+        return view('admin.requests')->with('data', $data)->with('dept_name', $dept_name);
     }
 }
 

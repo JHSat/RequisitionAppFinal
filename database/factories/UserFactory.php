@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\User;
+use App\Department;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -34,5 +35,12 @@ $factory->define(App\Items::class, function (Faker $faker) {
         'itemCode' => $faker->randomDigit,
         'description' => $faker->text($maxNbChars = 200),
         'unit' => $faker->word
+    ];
+});
+
+
+$factory->define(App\Department::class, function (Faker $faker) {
+    return [
+        'department_name' => $faker->word
     ];
 });

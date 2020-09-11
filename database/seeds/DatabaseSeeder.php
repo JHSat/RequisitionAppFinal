@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Faker\Generator as Faker;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        DB::table('department')->insert([
+            'department_name' => Str::random(15)
+        ]);
     }
 }

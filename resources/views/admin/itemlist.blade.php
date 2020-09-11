@@ -115,7 +115,9 @@
                 <div class="pb-5">
                     <small>{{Auth::user()->usertype}} /</small>
                     <small>{{Auth::user()->position}}</small><br>
-                    <small>{{$dept->department_name}} Department</small>
+                    @isset($dept)
+                        <small>{{$dept->department_name}} Department</small>
+                    @endisset
                 </div>
                 <small>Click below to update your profile</small>
                 <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#exampleModal">Add photo</button>
@@ -126,7 +128,9 @@
                 <h5>{{Auth::user()->name}}</h5><br>
                 <small>{{Auth::user()->usertype}} /</small>
                 <small>{{Auth::user()->position}}</small><br>
-                <small>{{$dept->department_name}} Department</small>
+                @isset($dept)
+                    <small>{{$dept->department_name}} Department</small>
+                @endisset
             </div> 
             @endif
             <div class="px-1">
