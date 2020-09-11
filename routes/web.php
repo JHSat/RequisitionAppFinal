@@ -41,6 +41,10 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/userDetails/{id}', 'UserController@userDetails');
     Route::post('/addUser', 'UserController@addUser');
     Route::put('/updateDeptUser/{id}', 'UserController@updateDeptUser');
+    Route::get('/admindashboard/viewRequestAdmin/{id}', 'RequestController@viewRequestAdmin');
+    Route::put('/authorizeRequest/{id}', 'RequestController@authorizeRequest');
+
+
 });
 
 Route::group(['middleware' => ['auth','user']], function () {

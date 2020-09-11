@@ -226,6 +226,37 @@ class RequestController extends Controller
         $data = DB::select($sql);        
         return view('admin.requests')->with('data', $data)->with('dept_name', $dept_name);
     }
+
+    public function viewRequestAdmin($id){
+        $req = Requests::find($id);
+        $user = User::where('id', '=', $req->requestee)->first();
+        $items = DB::select("SELECT * FROM storage 
+                            join items on storage.item_id = items.item_id
+                            where storage.transac_code = '".$req->transac_code."'");
+        $author = User::where('id', '=', $req->authorizedBy)->first();
+        return view('admin.view_request')
+                ->with('req', $req)
+                ->with('user', $user)
+                ->with('items', $items)
+                ->with('author', $author);
+    }
+
+    public function authorizeRequest($id){
+        $req = Requests::find($id);
+
+        $req->status = 'A';
+        $req->authorizedBy = Auth::user()->id;
+        $req->authorizedDate = date('Y-m-d H:i:s');
+
+        $req->save();
+        $dd = date('Y-m-d H:i:s');
+        return response()->json([
+            'success' => 'authorized successfully!',
+            'req_id' => $req->req_id,
+            'authorizedBy' => Auth::user()->name,
+            'authDate' => $dd
+        ]);
+    }
 }
 
 

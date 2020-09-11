@@ -337,4 +337,52 @@ $(document).ready(function(){
             }
         })
     })
+
+
+    $('body').on('click', '.btnAuthorize', function(e){
+        var req_id = $(this).data('id');
+
+        // console.log(req_id)
+
+        Swal.fire({
+            title: 'Authorize this request?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, authorize it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/authorizeRequest/' + req_id,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    method: 'PUT', 
+                    success: function(res){
+                        Toast.fire({
+                            icon: 'success',
+                            title: res.success
+                        })
+                        $('#authorizedBy').text(res.authorizedBy)
+                        $('#authDate').text(res.authDate)
+                        setTimeout(function(){
+                            location.reload()
+                        }, 2000)
+                    },
+                    error: function(err){   
+                        console.log(err)
+                    }
+                })
+            }
+        })
+    })
+
+    // function getAuthor(user){
+    //     console.log(user)
+
+    //     $.get('/getAuthor/' + user, function(data){
+    //         $('#authorizedBy').text()
+    //         $('#authDate').text()
+    //     })
+    // }
 })
