@@ -13,22 +13,18 @@ use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Yajra\Datatables\Datatables;
 
-
-
 class RequestController extends Controller
 {    
     public function indexmakerequest(){
         $date = date('Y-m-d');
         return view('user.makerequest')->with('date', $date);
     }
-
     public function getAllItems(){
         $items = Items::all();
         return response()->json([
             'data' => $items
         ]);
     }
-
     public function insertRequest(Request $request){
         if($request->ajax()){
             $con1 = [
@@ -43,13 +39,11 @@ class RequestController extends Controller
                 'field' => 'transac_code',
                 'prefix' => 'TN'
             ];
-
             $req_id = IdGenerator::generate($con1);
             $transac_code = IdGenerator::generate($con2);
             $requestee = $request->requestee;
             $date = date('Y-m-d H:i:s');
             $status = 'O';
-
             $req = new Requests([
                 'req_id' => $req_id,
                 'transac_code' => $transac_code,
@@ -57,12 +51,9 @@ class RequestController extends Controller
                 'requestedDate' => $date,
                 'status' => $status
             ]);
-
             if($req->save()){
-
                 $item_id = $request->item;
                 $quantity = $request->quantity;
-                
                 for($count = 0;  $count < count($item_id); $count++){
                     $data = array(
                         'item_id' => $item_id[$count],
@@ -71,7 +62,6 @@ class RequestController extends Controller
                     );
                     $insert_data[] = $data;
                 }
-
                 Storage::insert($insert_data);
                 return response()->json([
                     'success' => 'Requisition form sent!'
@@ -79,17 +69,11 @@ class RequestController extends Controller
             }
         }
     }
-
     public function sampleindex(){
-
-
         $date = date('Y-m-d');
-
         return view('user.sample')->with('date', $date);
     }
-
     public function select2Item(Request $request){
-
         $code = $request->code;
         if($code == 2){
             $html = "
@@ -107,15 +91,12 @@ class RequestController extends Controller
         }
         else{
             $search = $request->search;
-
             if ($search == '') {
                 $items = Items::orderby('unit', 'asc')->select('item_id','unit')->get();
             } else {
                 $items = Items::orderby('unit', 'asc')->select('item_id','unit')->where('unit', 'like', '%'.$search.'%')->get();
             }
-
             $response = array();
-
             foreach ($items as $item) {
                 $response[] = array(
                     'id' => $item->item_id,
@@ -125,16 +106,13 @@ class RequestController extends Controller
             return response()->json($response);
         }
     }
-
     public function requestIndex($id){
-        
         $req = Requests::find($id);
         if(Auth::user()->id == $req->requestee){
             $request = Requests::find($id);
             $user = User::where('id', '=', $request->requestee)->first();
             $sql = "SELECT * FROM storage JOIN items on storage.item_id = items.item_id WHERE transac_code = '".$request->transac_code."'";
             $data_items = DB::select($sql);
-
             return view('user.request')->with('request', $request)->with('user', $user)->with('data_items', $data_items);
         }
         else{
@@ -143,13 +121,10 @@ class RequestController extends Controller
     }
     public function deleteRequest(Request $request, $id){
         $reqDel = Requests::find($id);
-
         if (Auth::user()->id == $reqDel->requestee) {
             $itemDel = Storage::where('transac_code', '=', $reqDel->transac_code);
-        
             $itemDel->delete();
             $reqDel->delete();
-    
             return response()->json([
                 'success' => 'Request deleted successfully!'
             ]);
@@ -157,24 +132,17 @@ class RequestController extends Controller
             return redirect()->back();
         }
     }
-
     public function editRequest($id){
-
         $req = Requests::find($id);
         return view('user.editrequest')->with('req', $req);
 
     }
-
     public function getEditItems($id){
         $req_id = Requests::find($id);
-
         $sql = "SELECT * FROM storage 
                 join items on storage.item_id = items.item_id 
                 WHERE transac_code = '".$req_id->transac_code."'";
-
         $data = DB::select($sql);
-        // dd($data);
-
         return Datatables::of($data)
         ->addColumn('action', function($row){
             $btn = '<a href="javascript:void(0)" data-id="'.$row->item_id.'" class="btnRemoveItem btn btn-danger btn-sm">Remove item</a>';
@@ -182,24 +150,19 @@ class RequestController extends Controller
         })
         ->make(true);
     }
-
     public function removeItem(Request $request){
-
         DB::delete("DELETE FROM storage 
                     WHERE item_id = '".$request->item_id."'
                     AND transac_code = '".$request->transac_code."'");
-
         return response()->json([
             'success' => 'Item removed successfully'
         ]);
     }
-
     public function updateRequestItem(Request $request){
         if($request->ajax()){
             $item_id = $request->item;
             $quantity = $request->quantity;
             $transac_code = $request->transac_code;
-            
             for($count = 0;  $count < count($item_id); $count++){
                 $data = array(
                     'item_id' => $item_id[$count],
@@ -208,25 +171,17 @@ class RequestController extends Controller
                 );
                 $insert_data[] = $data;
             }
-
             Storage::insert($insert_data);
             return response()->json([
                 'success' => 'Edited successfully'
             ]);
-            
         }
     }
-    
-
     public function requestAdminIndex(){
         $id = Auth::user()->department;
-        $sql = "SELECT * FROM requests JOIN users on requests.requestee = users.id JOIN department on users.department = department.id WHERE users.department = $id ORDER BY requests.req_id DESC";
-        
         $dept_name = Department::where('id', '=', $id)->first();
-        $data = DB::select($sql);        
-        return view('admin.requests')->with('data', $data)->with('dept_name', $dept_name);
+        return view('admin.requests')->with('dept_name', $dept_name);
     }
-
     public function viewRequestAdmin($id){
         $req = Requests::find($id);
         $user = User::where('id', '=', $req->requestee)->first();
@@ -242,14 +197,11 @@ class RequestController extends Controller
                 ->with('author', $author)
                 ->with('confirmer', $confirmer);
     }
-
     public function authorizeRequest($id){
         $req = Requests::find($id);
-
         $req->status = 'A';
         $req->authorizedBy = Auth::user()->id;
         $req->authorizedDate = date('Y-m-d H:i:s');
-
         $req->save();
         $dd = date('Y-m-d H:i:s');
         return response()->json([
@@ -259,17 +211,13 @@ class RequestController extends Controller
             'authDate' => $dd
         ]);
     }
-
     public function confirmRequest($id){
         $req = Requests::find($id);
-
         $req->status = 'C';
         $req->confirmedBy = Auth::user()->id;
         $req->confirmedDate = date('Y-m-d H:i:s');
         $req->processedDate = date('Y-m-d H:i:s');
-
         $req->save();
-
         return response()->json([
             'success' => 'Request confirmed!',
             'confirmedBy' => Auth::user()->name,

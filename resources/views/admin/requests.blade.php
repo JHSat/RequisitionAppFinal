@@ -61,28 +61,9 @@
                 </div>
                 <div class="card-body">
                     <div class="container">
-                        @isset($data)
-                            @foreach ($data as $datum)
-                                <div>
-                                    <div>
-                                        <h5>{{$datum->req_id}}</h5>
-                                    </div>
-                                    <div><small>Status:</small> <small>{{$datum->status}}</small></div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div><small>By:</small> <small>{{$datum->name}}</small></div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="float-right d-flex"><small>Date Requested: &nbsp;</small> <pre>{{$datum->requestedDate}}</pre></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <small><a href="/admindashboard/viewRequestAdmin/{{$datum->req_id}}" class="">View > > </a></small>
-                                    </div>
-                                </div>
-                                <hr>
-                            @endforeach
-                        @endisset
+                        <table id="requestsTable">
+                            
+                        </table>
                     </div>
                 </div>
             </div>
