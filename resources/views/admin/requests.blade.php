@@ -61,8 +61,16 @@
                 </div>
                 <div class="card-body">
                     <div class="container">
-                        <table id="requestsTable">
-                            
+                        <table id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>Request ID</th>
+                                    <th>Requestee</th>
+                                    <th>Status</th>
+                                    <th>Requested Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </div>
@@ -70,4 +78,30 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#myTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdfHtml5'
+            ],
+            processing: true,
+            responsive: true,
+            serverSide: true,
+            ajax: {
+                url: '/getAllRequests'
+            },
+            columns: [
+                { data: 'req_id', name: 'req_id'},
+                { data: 'name', name: 'name'},
+                { data: 'status', name: 'status'},
+                { data: 'requestedDate', name: 'requestedDate'},
+                { data: 'action', name: 'action'}
+            ]
+        })
+    })
+</script>
 @endsection

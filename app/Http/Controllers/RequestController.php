@@ -182,6 +182,19 @@ class RequestController extends Controller
         $dept_name = Department::where('id', '=', $id)->first();
         return view('admin.requests')->with('dept_name', $dept_name);
     }
+    public function getAllRequests(){
+        $user_dept = Auth::user()->department;
+        $getRequests = DB::select("SELECT * FROM requests
+                JOIN users on requests.requestee = users.id
+                JOIN department on users.department = department.id
+                WHERE users.department = '".$user_dept."'");
+        return Datatables::of($getRequests)
+        ->addColumn('action', function($row){
+            $btn = '<a href="/admindashboard/viewRequestAdmin/'.$row->req_id.'" class="btn btn-primary btn-sm">View Request</a> ';
+            return $btn;
+        })
+        ->make(true);
+    }
     public function viewRequestAdmin($id){
         $req = Requests::find($id);
         $user = User::where('id', '=', $req->requestee)->first();
