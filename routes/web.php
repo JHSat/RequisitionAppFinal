@@ -28,6 +28,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/admindashboard','UserController@userCount');
     Route::get('/admindashboard/requests', 'RequestController@requestAdminIndex');
+    Route::get('/getAllRequests', 'RequestController@getAllRequests');
     Route::get('/admindashboard/users', 'UserController@showUsers')->name('admin.users');
     Route::get('/admindashboard/items', 'ItemController@showItems')->name('admin.itemlist');
     Route::get('/getItems', 'ItemController@getItems')->name('get.items');
