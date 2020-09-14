@@ -68,7 +68,7 @@
                                     <th>Requestee</th>
                                     <th>Status</th>
                                     <th>Requested Date</th>
-                                    <th>Action</th>
+                                    <th class="notexport">Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -81,13 +81,36 @@
 <script>
     $(document).ready(function(){
         $('#myTable').DataTable({
-            dom: 'Bfrtip',
+            dom: 'Blfrtip',
             buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                'pdfHtml5'
-            ],
+                {
+                extend: 'pdf',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            },
+            {
+                extend: 'csv',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            },
+            {
+                extend: 'excel',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            },
+            {
+                extend: 'copy',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            }],  
             processing: true,
             responsive: true,
             serverSide: true,
