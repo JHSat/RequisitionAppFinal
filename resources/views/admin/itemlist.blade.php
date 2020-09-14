@@ -174,7 +174,7 @@
                                 <td>#</td>
                                 <td>Item Code</td>
                                 <td>Unit</td>
-                                <td>Action</td>
+                                <td class="notexport">Action</td>
                             </tr>
                         </thead>
                     </table>
@@ -187,6 +187,36 @@
     $(document).ready(function(){
         //show DataTables
         $('#myTable').DataTable({
+            dom: 'Blfrtip',
+            buttons: [
+            {
+                extend: 'pdf',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            },
+            {
+                extend: 'csv',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            },
+            {
+                extend: 'excel',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            },
+            {
+                extend: 'copy',
+                footer: true,
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            }],
             processing: true,
             responsive: true,
             serverSide: true,
