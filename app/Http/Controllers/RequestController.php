@@ -234,11 +234,13 @@ class RequestController extends Controller
                             join items on storage.item_id = items.item_id
                             where storage.transac_code = '".$req->transac_code."'");
         $author = User::where('id', '=', $req->authorizedBy)->first();
+        $confirmer = User::where('id', '=', $req->confirmedBy)->first();
         return view('admin.view_request')
                 ->with('req', $req)
                 ->with('user', $user)
                 ->with('items', $items)
-                ->with('author', $author);
+                ->with('author', $author)
+                ->with('confirmer', $confirmer);
     }
 
     public function authorizeRequest($id){
@@ -255,6 +257,24 @@ class RequestController extends Controller
             'req_id' => $req->req_id,
             'authorizedBy' => Auth::user()->name,
             'authDate' => $dd
+        ]);
+    }
+
+    public function confirmRequest($id){
+        $req = Requests::find($id);
+
+        $req->status = 'C';
+        $req->confirmedBy = Auth::user()->id;
+        $req->confirmedDate = date('Y-m-d H:i:s');
+        $req->processedDate = date('Y-m-d H:i:s');
+
+        $req->save();
+
+        return response()->json([
+            'success' => 'Request confirmed!',
+            'confirmedBy' => Auth::user()->name,
+            'confirmedDate' => date('Y-m-d H:i:s'),
+            'processedDate' => date('Y-m-d H:i:s')
         ]);
     }
 }

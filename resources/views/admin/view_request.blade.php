@@ -67,13 +67,25 @@
                     @endif
                 </div>
                 <div class="my-1">
-                    <span class="text-secondary">Confirmed Date: </span><small class="text-danger">asd</small>
+                    @if (isset($confirmer))
+                        <span class="text-secondary">Confirmed by: </span><small>{{$confirmer->name}}</small>
+                    @else
+                        <span class="text-secondary">Confirmed by: </span><small id="confirmedBy">---</small>
+                    @endif
                 </div>
                 <div class="my-1">
-                    <span class="text-secondary">Confirmed by: </span><small class="text-danger">asd</small>
+                    @if (isset($req->confirmedDate))
+                        <span class="text-secondary">Confirmed Date: </span><small>{{$req->confirmedDate}}</small>
+                    @else
+                        <span class="text-secondary">Confirmed Date: </span><small id="confirmedDate">---</small>
+                    @endif
                 </div>
                 <div class="my-1">
-                    <span class="text-secondary">Processed Date: </span><small class="text-danger">asd</small>
+                    @if (isset($req->processedDate))
+                        <span class="text-secondary">Processed Date: </span><small>{{$req->processedDate}}</small>
+                    @else
+                        <span class="text-secondary">Processed Date: </span><small id="processedDate">---</small>
+                    @endif
                 </div>
             </div>
         </div>

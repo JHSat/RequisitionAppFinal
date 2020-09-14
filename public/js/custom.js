@@ -377,12 +377,44 @@ $(document).ready(function(){
         })
     })
 
-    // function getAuthor(user){
-    //     console.log(user)
+    $('body').on('click', '#confirmRequest', function(e){
+        e.preventDefault();
 
-    //     $.get('/getAuthor/' + user, function(data){
-    //         $('#authorizedBy').text()
-    //         $('#authDate').text()
-    //     })
-    // }
+        var req_id = $(this).data('id')
+
+        console.log(req_id)
+        
+        Swal.fire({
+            title: 'Confirm this request?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, authorize it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/confirmRequest/' + req_id,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    method: 'PUT',
+                    success: function(res){
+                        Toast.fire({
+                            icon: 'success',
+                            title: res.success
+                        })
+                        $('#confirmedBy').text(res.confirmedBy)
+                        $('#confirmedDate').text(res.confirmedDate)
+                        $('#processedDate').text(res.processedDate)
+                        setTimeout(function(){
+                            location.reload()
+                        }, 2000)
+                    },
+                    error: function(err){
+
+                    }
+                })
+            }
+        })
+    })
 })
