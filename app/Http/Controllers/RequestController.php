@@ -8,6 +8,7 @@ use App\User;
 use App\Department;
 use App\Requests;
 use App\Storage;
+use App\Notification;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -231,6 +232,15 @@ class RequestController extends Controller
         $req->confirmedDate = date('Y-m-d H:i:s');
         $req->processedDate = date('Y-m-d H:i:s');
         $req->save();
+
+        $notif = new Notification([
+            'req_id' => $req->req_id,
+            'user_notif' => $req->requestee,
+            'description' => 'Your request has been authorized and confirmed!',
+            'status' => 'unread'
+        ]);
+
+        $notif->save();
         return response()->json([
             'success' => 'Request confirmed!',
             'confirmedBy' => Auth::user()->name,
