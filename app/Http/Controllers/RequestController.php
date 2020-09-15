@@ -226,7 +226,7 @@ class RequestController extends Controller
     }
     public function confirmRequest($id){
         $req = Requests::find($id);
-        $req->status = 'P';
+        $req->status = 'C';
         $req->confirmedBy = Auth::user()->id;
         $req->confirmedDate = date('Y-m-d H:i:s');
         $req->processedDate = date('Y-m-d H:i:s');
@@ -236,6 +236,16 @@ class RequestController extends Controller
             'confirmedBy' => Auth::user()->name,
             'confirmedDate' => date('Y-m-d H:i:s'),
             'processedDate' => date('Y-m-d H:i:s')
+        ]);
+    }
+    public function setAsProcessed($id){
+        $req = Requests::find($id);
+
+        $req->status = 'P';
+        $req->save();
+
+        return response()->json([
+            'success' => 'Updated successfully! ✔'
         ]);
     }
 }
