@@ -27,12 +27,16 @@
                 </div>
             </div>
             <div class="col">
-                @if ($request->status == 'A' || $request->status == 'C' || $request->status == 'P')
+                @if ($request->status == 'A' || $request->status == 'P')
                     <div class="float-left" hidden>hidden</div>
+
+                @elseif($request->status == 'C')
+                <button class="btn btn-success float-right" id="btnprocess" data-id="{{$request->req_id}}">Process</button>
                 @else
                     <a href="/editRequest/{{$request->req_id}}" class="float-right btn btn-primary mx-1" type="submit">Edit</a>
                     <button class="float-right btn btn-danger mx-1" type="submit" id="btnDeleteRequest" data-id="{{$request->req_id}}">Delete</button>
                 @endif
+                
                 <div class="my-1">
                     <span class="text-secondary">Authorized by: </span><small class="text-danger">{{$request->authorizedBy}}</small>
                 </div>

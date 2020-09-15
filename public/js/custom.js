@@ -417,4 +417,51 @@ $(document).ready(function(){
             }
         })
     })
+
+    $('body').on('click', '#btnprocess', function(e){
+        e.preventDefault();
+        var req_id = $(this).data('id')
+
+        $.ajax({
+            url: '/setAsProcessed/' + req_id,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: 'PUT',
+            success: function(res){
+                let timerInterval
+                Swal.fire({
+                title: 'Updating...',
+                timer: 1500,
+                onBeforeOpen: () => {
+                    Swal.showLoading()
+                    timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                        b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                    }, 100)
+                },
+                onClose: () => {
+                    clearInterval(timerInterval)
+                }
+                }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: res.success
+                    })
+                    setTimeout(function(){
+                        location.reload()
+                    }, 2000)
+                }
+                })
+            },
+            error: function(err){
+
+            }
+        })
+    })
 })

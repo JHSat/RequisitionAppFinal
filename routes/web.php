@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::get('/getEditItems/{id}', 'RequestController@getEditItems');
    Route::delete('/removeItem', 'RequestController@removeItem');
    Route::post('/updateRequestItem', 'RequestController@updateRequestItem');
-
+    Route::put('/setAsProcessed/{id}', 'RequestController@setAsProcessed');
 });
 
 Route::get('/security', 'UserController@checkIfAuth');
