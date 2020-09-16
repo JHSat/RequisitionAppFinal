@@ -1,0 +1,12 @@
+.notif_wrapper{
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+}
+.notif_content{
+    padding: 0;
+    margin: 0;
+}
+.px{
+    padding-left: 8px;
+}

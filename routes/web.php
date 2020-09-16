@@ -70,8 +70,16 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::put('/setAsProcessed/{id}', 'RequestController@setAsProcessed');
 
    View::composer('layouts.app', function($view){
-        $notifs = Notification::where('user_notif', '=', Auth::user()->id)->get();
+
+    if (Auth::user()) {
+        $notifs = Notification::where('user_notif', '=', Auth::user()->id)->where('status', '=', 'unread')->get();
         $view->with('notifs', $notifs);
+    } else {
+        return $view;
+    }
+    
+        
+        // dd($notifs);
    });
 });
 
