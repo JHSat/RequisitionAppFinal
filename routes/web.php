@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use RealRashid\SweetAlert\Facades\Alert;
-
+use App\Notification;
+// use Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,11 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::delete('/removeItem', 'RequestController@removeItem');
    Route::post('/updateRequestItem', 'RequestController@updateRequestItem');
    Route::put('/setAsProcessed/{id}', 'RequestController@setAsProcessed');
+
+   View::composer('layouts.app', function($view){
+        $notifs = Notification::where('user_notif', '=', Auth::user()->id)->get();
+        $view->with('notifs', $notifs);
+   });
 });
 
 Route::get('/security', 'UserController@checkIfAuth');
