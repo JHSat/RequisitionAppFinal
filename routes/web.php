@@ -72,14 +72,11 @@ Route::group(['middleware' => ['auth','user']], function () {
    View::composer('layouts.app', function($view){
 
     if (Auth::user()) {
-        $notifs = Notification::where('user_notif', '=', Auth::user()->id)->where('status', '=', 'unread')->get();
+        $notifs = Notification::orderby('id', 'desc')->where('user_notif', '=', Auth::user()->id)->where('status', '=', 'unread')->get();
         $view->with('notifs', $notifs);
     } else {
         return $view;
     }
-    
-        
-        // dd($notifs);
    });
 });
 

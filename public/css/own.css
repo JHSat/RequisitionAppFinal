@@ -10,3 +10,24 @@
 .px{
     padding-left: 8px;
 }
+.btnDismiss{
+    background-color: lightcoral;
+    color: white;
+    font-weight: bold;
+    padding: 4px 13px;
+    border: none;
+    border-radius: 80px;
+    transition: 0.5s;
+}
+.btnDismiss:hover{
+    background-color: red;
+    transition: 0.5s;
+}
+.btnDismiss:focus{
+    outline: none;
+}
+.notif_header{
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 5px;
+}

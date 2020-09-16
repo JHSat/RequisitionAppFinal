@@ -108,6 +108,7 @@
                                 Notifications <span class="badge badge-danger" id="count_notif">{{count($notifs)}}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow-lg border-0" aria-labelledby="navbarDropdown2" style="min-width: 30rem">
+                                <div class="pl-4 notif_header">Notifications</div>
                                 <div class="py-2 text-center">
                                     <span id="forNotif_count"></span>
                                 </div>
@@ -124,7 +125,7 @@
                                                 <small>Request ID: <a href="/userdashboard/viewRequest/{{$notif->req_id}}">{{$notif->req_id}}</a></small>
                                             </div>
                                             <div class="btn_middle" style="margin-left: auto;">
-                                                <button class="btnDismiss btn btn-danger btn-sm" type="submit">Dismiss</button>
+                                                <button data-toggle="tooltip" data-placement="right" title="dismiss" class="btnDismiss" type="submit">x</button>
                                             </div>
                                         </div>
                                     </div>      

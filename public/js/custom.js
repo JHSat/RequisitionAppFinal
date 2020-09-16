@@ -475,16 +475,16 @@ $(document).ready(function(){
         $('#count_notif').text(diff) 
         checkNotif()
     })
-
-    $('body').on('click', '#navbarDropDown2', function(){
-        console.log('baahahhhhh')
-    })
     function checkNotif(){
         var message = "All caught up! No new notifications"
         var count = $('#count_notif').text()
         if(count == 0){
+        setTimeout(function(){
            $('#forNotif_count').text(message)
-        console.log('way notification')
+        },1000)
         }
     }
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
 })
