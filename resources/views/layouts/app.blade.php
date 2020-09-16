@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
-
+    <link rel="stylesheet" href="{{asset('css/own.css')}}">
 
     <style>
         body{
@@ -100,16 +100,30 @@
                             @endif
                         @else
 
+                        
+
                         @if (Auth::user()->position == 'employee')
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown2" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Notifications
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2" style="min-width: 28rem">
-                                <div class="px-2">
-                                    <h5>New Notification</h5>
-                                    <p>Message here!</p>
-                                </div>
+                            <div class="dropdown-menu dropdown-menu-right shadow-lg border-0" aria-labelledby="navbarDropdown2" style="min-width: 30rem">
+                                @foreach ($notifs as $notif)
+                                    <div class="notif_container">
+                                        <div class="notif_wrapper">
+                                            <div class="div_img">
+                                                <img class="rounded-circle" src="{{asset('./storage/images/'.Auth::user()->avatar)}}" alt="" width="50">
+                                            </div>
+                                            <div class="px">
+                                                <!-- <h3 class="notif_content">New Notif</h3> -->
+                                                <p class="notif_content">{{$notif->description}}</p>
+                                            </div>
+                                            <div class="btn_middle" style="margin-left: auto;">
+                                                <button class="btn btn-danger btn-sm">x</button>
+                                            </div>
+                                        </div>
+                                    </div>      
+                                @endforeach
                             </div>  
                         </li>
                         @endif
