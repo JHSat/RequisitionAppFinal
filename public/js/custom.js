@@ -464,4 +464,14 @@ $(document).ready(function(){
             }
         })
     })
+
+    $('body').on('click', '.btnDismiss', function(e){
+        e.stopPropagation();
+
+
+        $(this).closest(".notif_wrapper").fadeOut('slow');
+        var count_notif = $('#count_notif').text();
+        var diff = count_notif - 1
+        $('#count_notif').text(diff)  
+    })
 })

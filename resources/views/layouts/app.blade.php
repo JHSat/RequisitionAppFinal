@@ -105,21 +105,27 @@
                         @if (Auth::user()->position == 'employee')
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown2" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Notifications
+                                Notifications <span class="badge badge-danger" id="count_notif">{{count($notifs)}}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow-lg border-0" aria-labelledby="navbarDropdown2" style="min-width: 30rem">
+                                
+                                @if (empty($notifs))
+                                    <div>No Notifications</div>                                
+                                @endif
+                                
                                 @foreach ($notifs as $notif)
                                     <div class="notif_container">
                                         <div class="notif_wrapper">
                                             <div class="div_img">
-                                                <img class="rounded-circle" src="{{asset('./storage/images/'.Auth::user()->avatar)}}" alt="" width="50">
+                                                <img class="rounded-circle" src="{{asset('./storage/images/check.png')}}" alt="" width="50">
                                             </div>
                                             <div class="px">
                                                 <!-- <h3 class="notif_content">New Notif</h3> -->
                                                 <p class="notif_content">{{$notif->description}}</p>
+                                                <small>Request ID: <a href="/userdashboard/viewRequest/{{$notif->req_id}}">{{$notif->req_id}}</a></small>
                                             </div>
                                             <div class="btn_middle" style="margin-left: auto;">
-                                                <button class="btn btn-danger btn-sm">x</button>
+                                                <button class="btnDismiss btn btn-danger btn-sm" type="submit">Dismiss</button>
                                             </div>
                                         </div>
                                     </div>      
