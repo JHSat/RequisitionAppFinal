@@ -7,7 +7,7 @@ $(document).ready(function(){
             dt.fnDraw();
         })
     }
-
+    checkNotif()
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-left',
@@ -472,6 +472,19 @@ $(document).ready(function(){
         $(this).closest(".notif_wrapper").fadeOut('slow');
         var count_notif = $('#count_notif').text();
         var diff = count_notif - 1
-        $('#count_notif').text(diff)  
+        $('#count_notif').text(diff) 
+        checkNotif()
     })
+
+    $('body').on('click', '#navbarDropDown2', function(){
+        console.log('baahahhhhh')
+    })
+    function checkNotif(){
+        var message = "All caught up! No new notifications"
+        var count = $('#count_notif').text()
+        if(count == 0){
+           $('#forNotif_count').text(message)
+        console.log('way notification')
+        }
+    }
 })
