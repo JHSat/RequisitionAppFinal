@@ -108,10 +108,9 @@
                                 Notifications <span class="badge badge-danger" id="count_notif">{{count($notifs)}}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow-lg border-0" aria-labelledby="navbarDropdown2" style="min-width: 30rem">
-                                
-                                @if (empty($notifs))
-                                    <div>No Notifications</div>                                
-                                @endif
+                                <div class="py-2 text-center">
+                                    <span id="forNotif_count"></span>
+                                </div>
                                 
                                 @foreach ($notifs as $notif)
                                     <div class="notif_container">
