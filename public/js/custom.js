@@ -467,13 +467,18 @@ $(document).ready(function(){
 
     $('body').on('click', '.btnDismiss', function(e){
         e.stopPropagation();
-
-
-        $(this).closest(".notif_wrapper").fadeOut('slow');
-        var count_notif = $('#count_notif').text();
-        var diff = count_notif - 1
-        $('#count_notif').text(diff) 
-        checkNotif()
+        var no_id = $(this).data('id')
+        $.ajax({
+            url: '/markNotif/' + no_id,
+            type: 'DELETE',
+            success: function(response){
+                $(this).closest(".notif_wrapper").fadeOut('slow');
+                var count_notif = $('#count_notif').text();
+                var diff = count_notif - 1
+                $('#count_notif').text(diff) 
+                checkNotif()
+            }
+        })
     })
     function checkNotif(){
         var message = "All caught up! No new notifications"
@@ -486,5 +491,6 @@ $(document).ready(function(){
     }
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-      })
+    })
+
 })
