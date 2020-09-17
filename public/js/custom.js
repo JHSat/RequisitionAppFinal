@@ -467,17 +467,19 @@ $(document).ready(function(){
 
     $('body').on('click', '.btnDismiss', function(e){
         e.stopPropagation();
+        $(this).closest(".notif_wrapper").fadeOut('slow');
+        var count_notif = $('#count_notif').text();
+        var diff = count_notif - 1
+        $('#count_notif').text(diff) 
+        checkNotif()
         var no_id = $(this).data('id')
         $.ajax({
             url: '/markNotif/' + no_id,
-            type: 'DELETE',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            type: 'PUT',
             success: function(response){
-                $(this).closest(".notif_wrapper").fadeOut('slow');
-                var count_notif = $('#count_notif').text();
-                var diff = count_notif - 1
-                $('#count_notif').text(diff) 
-                checkNotif()
-            }
+                console.log('marked as read')
+            }   
         })
     })
     function checkNotif(){
