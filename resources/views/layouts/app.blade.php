@@ -125,7 +125,7 @@
                                                 <small>Request ID: <a href="/userdashboard/viewRequest/{{$notif->req_id}}">{{$notif->req_id}}</a></small>
                                             </div>
                                             <div class="btn_middle" style="margin-left: auto;">
-                                                <button data-toggle="tooltip" data-placement="right" title="dismiss" class="btnDismiss" type="submit">x</button>
+                                            <button data-toggle="tooltip" data-id="{{$notif->id}}" data-placement="right" title="dismiss" class="btnDismiss" type="submit">x</button>
                                             </div>
                                         </div>
                                     </div>      
