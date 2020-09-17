@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth','user']], function () {
    Route::delete('/removeItem', 'RequestController@removeItem');
    Route::post('/updateRequestItem', 'RequestController@updateRequestItem');
    Route::put('/setAsProcessed/{id}', 'RequestController@setAsProcessed');
+   Route::put('/markNotif/{id}', 'RequestController@markNotif');
 
    View::composer('layouts.app', function($view){
 
