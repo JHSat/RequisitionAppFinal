@@ -259,7 +259,12 @@ class RequestController extends Controller
         ]);
     }
     public function markNotif($id){
-        
+        $notif = Notification::find($id);
+
+        $notif->status = 'read';
+        $notif->save();
+
+        return response()->json($notif);
     }
 }
 
