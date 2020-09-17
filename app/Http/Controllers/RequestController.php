@@ -258,6 +258,9 @@ class RequestController extends Controller
             'success' => 'Updated successfully! ✔'
         ]);
     }
+    public function markNotif($id){
+        
+    }
 }
 
 
