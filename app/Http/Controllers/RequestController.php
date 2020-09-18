@@ -112,9 +112,16 @@ class RequestController extends Controller
         if(Auth::user()->id == $req->requestee){
             $request = Requests::find($id);
             $user = User::where('id', '=', $request->requestee)->first();
+            $author = User::where('id', '=', $request->authorizedBy)->first();
+            $confirmer = User::where('id', '=', $request->confirmedBy)->first();
             $sql = "SELECT * FROM storage JOIN items on storage.item_id = items.item_id WHERE transac_code = '".$request->transac_code."'";
             $data_items = DB::select($sql);
-            return view('user.request')->with('request', $request)->with('user', $user)->with('data_items', $data_items);
+            return view('user.request')
+                    ->with('request', $request)
+                    ->with('user', $user)
+                    ->with('author', $author)
+                    ->with('confirmer', $confirmer)
+                    ->with('data_items', $data_items);
         }
         else{
             return redirect()->back();
@@ -230,7 +237,6 @@ class RequestController extends Controller
         $req->status = 'C';
         $req->confirmedBy = Auth::user()->id;
         $req->confirmedDate = date('Y-m-d H:i:s');
-        $req->processedDate = date('Y-m-d H:i:s');
         $req->save();
 
         $notif = new Notification([
@@ -245,13 +251,13 @@ class RequestController extends Controller
             'success' => 'Request confirmed!',
             'confirmedBy' => Auth::user()->name,
             'confirmedDate' => date('Y-m-d H:i:s'),
-            'processedDate' => date('Y-m-d H:i:s')
         ]);
     }
     public function setAsProcessed($id){
         $req = Requests::find($id);
 
         $req->status = 'P';
+        $req->processedDate = date('Y-m-d H:i:s');
         $req->save();
 
         return response()->json([

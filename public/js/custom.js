@@ -405,7 +405,6 @@ $(document).ready(function(){
                         })
                         $('#confirmedBy').text(res.confirmedBy)
                         $('#confirmedDate').text(res.confirmedDate)
-                        $('#processedDate').text(res.processedDate)
                         setTimeout(function(){
                             location.reload()
                         }, 2000)
