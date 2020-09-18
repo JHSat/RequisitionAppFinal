@@ -46,8 +46,6 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/admindashboard/viewRequestAdmin/{id}', 'RequestController@viewRequestAdmin');
     Route::put('/authorizeRequest/{id}', 'RequestController@authorizeRequest');
     Route::put('/confirmRequest/{id}', 'RequestController@confirmRequest');
-
-
 });
 
 Route::group(['middleware' => ['auth','user']], function () {

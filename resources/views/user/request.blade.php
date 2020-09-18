@@ -38,19 +38,19 @@
                 @endif
                 
                 <div class="my-1">
-                    <span class="text-secondary">Authorized by: </span><small class="text-danger">{{$request->authorizedBy}}</small>
+                    <span class="text-secondary">Authorized by: </span><small class="">{{$author->name}} ({{$author->position}})</small>
                 </div>
                 <div class="my-1">
-                    <span class="text-secondary">Authorized Date: </span><small class="text-danger">{{$request->authorizedDate}}</small>
+                    <span class="text-secondary">Authorized Date: </span><small class="">{{$request->authorizedDate}}</small>
                 </div>
                 <div class="my-1">
-                    <span class="text-secondary">Confirmed Date: </span><small class="text-danger">{{$request->confirmedDate}}</small>
+                    <span class="text-secondary">Confirmed Date: </span><small class="">{{$request->confirmedDate}}</small>
                 </div>
                 <div class="my-1">
-                    <span class="text-secondary">Confirmed by: </span><small class="text-danger">{{$request->confirmedBy}}</small>
+                    <span class="text-secondary">Confirmed by: </span><small class="">{{$confirmer->name}} ({{$confirmer->position}})</small>
                 </div>
                 <div class="my-1">
-                    <span class="text-secondary">Processed Date: </span><small class="text-danger">{{$request->processedDate}}</small>
+                    <span class="text-secondary">Processed Date: </span><small class="">{{$request->processedDate}}</small>
                 </div>
             </div>
         </div>
